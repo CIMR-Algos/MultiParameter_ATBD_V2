@@ -1,0 +1,54 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title: CIMR L2 Multi Parameter Retrieval ATBD v1
+author: Marcus Huntemann, Janna Rückert and Gunnar Spreen, University of Bremen
+logo: logo.jpg
+
+# Force re-execution of notebooks on each build.
+# See https://jupyterbook.org/content/execute.html
+execute:
+  execute_notebooks: cache
+  timeout: 120
+
+# Define the name of the latex output file for PDF builds
+latex:
+  latex_documents:
+    targetname: atbd.tex
+
+# Add a bibtex file so that we can create citations
+bibtex_bibfiles:
+  - references.bib
+
+# Format the citation style
+sphinx:
+  config:
+    nb_render_markdown_format: myst
+    bibtex_reference_style: author_year
+    html_show_copyright: false
+  extra_extensions:
+    - sphinxcontrib.mermaid
+  
+parse:
+  myt_enable_extensions:
+  - deflist
+  - dollarmath
+
+
+# Information about where the book exists on the web
+repository:
+  url: https://github.com/CIMR-Algos/MultiParameter_ATBD
+  path_to_book: book  # Optional path to your book, relative to the repository root
+  branch: main  # Which branch of the repository should be used when creating links (optional)
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+html:
+  use_issues_button: false
+  use_repository_button: true
+  extra_footer: |
+    <p>
+    This ATBD was developed in the context of the ESA-funded CIMR DEVALGO study (2022-2024) (contract 4000137493).
+    <br>
+    ESA is not responsible in any way for the content of this document.
+    </p>
