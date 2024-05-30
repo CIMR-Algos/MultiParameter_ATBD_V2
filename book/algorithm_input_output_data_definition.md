@@ -15,6 +15,37 @@ uncertainties are assumed Gaussian in the retrieval.
 | L1B NeΔT | Random radiometric uncertainty of all channels | full swath or section of it (Nscans, Npos) |
 
 
+The complete list of all output variables output in the EASE2 grid for each hemisphere is given in the table below.
+
+| Abbreviation | CF variable name | Description | Shape/Amount |
+| --- | --- | --- | --- |
+| WSP | wind_speed | Wind speed | (1440,1440) |
+| WSPerr | wind_speed_error | Wind speed error | (1440,1440) |
+| TWV | total_water_vapour | Total water vapour | (1440,1440) |
+| TWVerr | total_water_vapour_error | Total water vapour error | (1440,1440) |
+| CLW | cloud_liquid_water | Cloud liquid water | (1440,1440) |
+| CLWerr | cloud_liquid_water_error | Cloud liquid water error | (1440,1440) |
+| SST | sea_surface_temperature | Sea surface temperature | (1440,1440) |
+| SSTerr | sea_surface_temperature_error | Sea surface temperature error | (1440,1440) |
+| IST | ice_surface_temperature | Ice surface temperature | (1440,1440) |
+| ISTerr | ice_surface_temperature_error | Ice surface temperature error | (1440,1440) |
+| SIC | sea_ice_concentration | Sea ice concentration | (1440,1440) |
+| SICerr | sea_ice_concentration_error | Sea ice concentration error | (1440,1440) |
+| MYIF | multi_year_ice_fraction | Multi-year ice fraction | (1440,1440) |
+| MYIFerr | multi_year_ice_fraction_error | Multi-year ice fraction error | (1440,1440) |
+| SIT | sea_ice_thickness | Sea ice thickness | (1440,1440) |
+| SITerr | sea_ice_thickness_error | Sea ice thickness error | (1440,1440) |
+| SSS | sea_surface_salinity | Sea surface salinity | (1440,1440) |
+| SSSerr | sea_surface_salinity_error | Sea surface salinity error | (1440,1440) |
+
+
+
+
+
+
+
+
+
 ## Output data
 
 The output data consist of the parameters, namely {term}`WSP`, {term}`TWV`,

@@ -1,7 +1,7 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: CIMR L2 Multi Parameter Retrieval ATBD v1
+title: CIMR L2 Multi Parameter Retrieval ATBD v2
 author: Marcus Huntemann, Janna Rückert and Gunnar Spreen, University of Bremen
 logo: logo.jpg
 
@@ -28,18 +28,17 @@ sphinx:
     html_show_copyright: false
   extra_extensions:
     - sphinxcontrib.mermaid
-  
+
 parse:
   myt_enable_extensions:
-  - deflist
-  - dollarmath
-
+    - deflist
+    - dollarmath
 
 # Information about where the book exists on the web
 repository:
   url: https://github.com/CIMR-Algos/MultiParameter_ATBD
-  path_to_book: book  # Optional path to your book, relative to the repository root
-  branch: main  # Which branch of the repository should be used when creating links (optional)
+  path_to_book: book # Optional path to your book, relative to the repository root
+  branch: main # Which branch of the repository should be used when creating links (optional)
 
 # Add GitHub buttons to your book
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
