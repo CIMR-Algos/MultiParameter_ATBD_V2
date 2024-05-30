@@ -1,6 +1,12 @@
 [deps]
 cartopy = ""
+netcdf4 = ""
 pandas = ""
 matplotlib = ""
 pytables = ""
+xarray = ""
+ipykernel = ""
 pyresample = ""
+
+[pip.deps]
+juliacall = ""
