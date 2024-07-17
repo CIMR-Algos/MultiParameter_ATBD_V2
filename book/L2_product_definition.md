@@ -4,32 +4,35 @@ The Level-2b product is the result of the processing from Level-1b brightness
 temperatures to Level-2R gridded geophysical parameters. The product is provided in the resampled
 grid of the CIMR instrument at resolution of the C-band channel, which means it contains 547
 samples per scan for each horn. Multiplied by the number of scans for each orbit gives the
-number of retrieved parameter values per orbit for each geophysical parameter. The product is provided in netCDF format and contains the
+number of retrieved parameter values per orbit for each geophysical parameter. 
+The output is saved on the EASE2 grid for Northern hemisphere (EPSG: 6931) and Southern hemisphere (EPSG: 6932) 
+in 15&nbsp;km resolution.
+The product is provided in netCDF format and contains the
 following variables following the [CF conventions](http://cfconventions.org/):
 
 (product_variables)=
 | Variable name | Unit | dimensions |
 | --- | ---- | ---| 
 | `time` | days since 2000-01-01 00:00:00 | `time` |
-| `wind_speed` | m s$^{-1}$ | n_scans * n_samples_earth * n_horns|
-| `total_water_vapor` | kg m$^{-2}$ | n_scans * n_samples_earth * n_horns|
-| `cloud_liq_water` | kg m$^{-2}$ | n_scans * n_samples_earth * n_horns|
-| `sea_surface_temperature` | K | n_scans * n_samples_earth * n_horns|
-| `ice_surface_temperature` | K | n_scans * n_samples_earth * n_horns|
-| `sea_ice_fraction` | 1 | n_scans * n_samples_earth * n_horns|
-| `multi_year_ice_fraction` | 1 | n_scans * n_samples_earth * n_horns|
-| `sea_ice_thickness` | m | n_scans * n_samples_earth * n_horns|
-| `wind_speed standard_error` | m s$^{-1}$ | n_scans * n_samples_earth * n_horns|
-| `total_water_vapor standard_error` | kg m$^{-2}$ | n_scans * n_samples_earth * n_horns|
-| `cloud_liq_water standard_error` | kg m$^{-2}$ | n_scans * n_samples_earth * n_horns|
-| `sea_surface_temperature standard_error` | K | n_scans * n_samples_earth * n_horns|
-| `ice_surface_temperature standard_error` | K | n_scans * n_samples_earth * n_horns|
-| `sea_ice_fraction standard_error` | 1 | n_scans * n_samples_earth * n_horns|
-| `multi_year_ice_fraction standard_error` | 1 | n_scans * n_samples_earth * n_horns|
-| `sea_ice_thickness standard_error` | m | n_scans * n_samples_earth * n_horns|
-| `quality_flag` | 1 | n_scans * n_samples_earth * n_horns| 
-| `sea_surface_salinity` | g kg$^{-1}$ | n_scans * n_samples_earth * n_horns|
-| `sea_surface_salinity standard_error` | g kg$^{-1}$ | n_scans * n_samples_earth * n_horns|
+| `wind_speed` | m s$^{-1}$ |  1440 x 1440|
+| `total_water_vapor` | kg m$^{-2}$ |  1440 x 1440|
+| `cloud_liq_water` | kg m$^{-2}$ |  1440 x 1440|
+| `sea_surface_temperature` | K |  1440 x 1440|
+| `ice_surface_temperature` | K |  1440 x 1440|
+| `sea_ice_fraction` | 1 |  1440 x 1440|
+| `multi_year_ice_fraction` | 1 |  1440 x 1440|
+| `sea_ice_thickness` | m |  1440 x 1440|
+| `wind_speed standard_error` | m s$^{-1}$ |  1440 x 1440|
+| `total_water_vapor standard_error` | kg m$^{-2}$ |  1440 x 1440|
+| `cloud_liq_water standard_error` | kg m$^{-2}$ |  1440 x 1440|
+| `sea_surface_temperature standard_error` | K |  1440 x 1440|
+| `ice_surface_temperature standard_error` | K |  1440 x 1440|
+| `sea_ice_fraction standard_error` | 1 |  1440 x 1440|
+| `multi_year_ice_fraction standard_error` | 1 |  1440 x 1440|
+| `sea_ice_thickness standard_error` | m |  1440 x 1440|
+| `quality_flag` | 1 |  1440 x 1440| 
+| `sea_surface_salinity` | g kg$^{-1}$ |  1440 x 1440|
+| `sea_surface_salinity standard_error` | g kg$^{-1}$ |  1440 x 1440|
 
 
 The dimension follow the definition of the original CIMR L1b product.

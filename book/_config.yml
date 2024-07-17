@@ -2,14 +2,14 @@
 # Learn more at https://jupyterbook.org/customize/config.html
 
 title: CIMR L2 Multi Parameter Retrieval ATBD v2
-author: Marcus Huntemann, Janna Rückert and Gunnar Spreen, University of Bremen
+author: "Marcus Huntemann, Janna Rückert, Gunnar Spreen, University of Bremen"
 logo: logo.jpg
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
   execute_notebooks: cache
-  timeout: 120
+  timeout: 240
 
 # Define the name of the latex output file for PDF builds
 latex:
@@ -32,6 +32,7 @@ sphinx:
 parse:
   myt_enable_extensions:
     - deflist
+    - amsmath
     - dollarmath
 
 # Information about where the book exists on the web

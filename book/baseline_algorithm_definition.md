@@ -10,10 +10,10 @@ divided into several steps, which are described in the following.
 ## CIMR Level-1b re-sampling approach
 
 
-The CIMR Level-1b data is first resampled to the C-band footprints using
-(TBD) resample tool. The target footprint with C-band is a compromise between
+The {term}`CIMR` Level-1b data is first resampled to the C-band footprints using
+nearest neighbor resampling. The target footprint with C-band is a compromise between
 resolution and accuracy given sensitivities of the inversion of the forward
-model. The main restrain being the L-band channel which has a
+model. The main restraint being the L-band channel which has a
 high influence on the retrieval, on ocean because of SSS and sea ice due to SIT. Higher up sampling of L-band than to the C-band resolution would require accurate knowledge about the antenna pattern of the instrument and a trade-off between accuracy and resolution.
 
 
@@ -74,15 +74,15 @@ graph TD
 ## Algorithm assumptions and simplifications
 
 Compared to individual state-of-the-art algorithms for the retrieval of individual quantities, the
-multi-parameter retrieval uses a simplified approach. Particular trade-offs
+multi parameter retrieval uses a simplified approach. Particular trade-offs
 include:
-* Some Ocean parameters contain many empirical values, developed and validated
+* Some ocean parameters contain many empirical values, developed and validated
   for different instruments which might have to be adjusted to match CIMR
 	  instrument characteristics.
-* The sea ice thickness is retrieved as a combination of first year ice
+* The sea ice thickness is retrieved as a combination of first-year ice
   emissivity and the ocean emissivity. As this, it is prone to noise in the
   ocean emission, which can lead to erroneous occurrence of sea ice of low
-  thickness, as the first year ice emissivity is identical to the ocean
+  thickness, as the first-year ice emissivity is identical to the ocean
   emissivity at 0 cm thickness.
 * The empirical parametrization of sea ice thickness stems from uncertain
   atmospheric conditions, so that the ice thickness dependence of higher
@@ -90,7 +90,7 @@ include:
   conditions.
 * The sensitivity of the CIMR channels to CLW, in particular over sea ice is
   low, so that the uncertainty of CLW is high. In addition, the effect of
-  decreased CLW over first year ice is similar to the effect of an increased
+  decreased CLW over first-year ice is similar to the effect of an increased
   MYI fraction, so that these two signals cannot be adequately separated in the
   current retrieval.
 * In the present version of the algorithm, the forward model is assumed
@@ -100,7 +100,7 @@ include:
   with
 	- IST > 273.15 K
 	- SST < 273.15 K
-	- TWV < 0 Kg/m$^2$
+	- TWV < 0 kg/m$^2$
 * There are more modern approaches for the forward model of the ocean emission,
   in particular at L-band. This will influence the retrieval of the ocean
   parameters, in particular {term}`SSS` and {term}`SST`. The current algorithm is the approach
@@ -108,10 +108,10 @@ include:
   parametrization like {cite}`Meissner2018` can be considered. However, the SSS is
   the parameter with the weakest signal in the forward model, so that other
   parametrization have to be improved, to justify this effort.
-* The Forward model is restricted to winter conditions over sea ice. The summer
+* The forward model is restricted to winter conditions over sea ice. The summer
   conditions are highly variable across frequencies and cannot be adequately
-  described by the current forward model. In particular the definition of first
-  year ice and multiyear ice is ambiguous in melting conditions. In addition,
+  described by the current forward model. In particular the definition of first-year
+  ice and multiyear ice is ambiguous in melting conditions. In addition,
   the {term}`SIT` parametrization is only valid for winter conditions. 
 
 
@@ -133,7 +133,7 @@ where
 
 ```{math}
 :label: eqxy
-\begin{align}
+\begin{aligned}
 \mathbf y= \begin{bmatrix}
 T_{b,h,1.4}\\
 T_{b,v,1.4}\\
@@ -157,7 +157,7 @@ T_{b,v,36.5}\\
 \text{SIT}\\
 \text{SSS}\\
 \end{bmatrix}
-\end{align}
+\end{aligned}
 ```
 
 i.e., $\mathbf{y}$ is the vector of input brightness temperatures (measurement vector) and
@@ -185,12 +185,12 @@ $\mathbf S_e$ is often set higher than the pure radiometric uncertainty of the b
 (fw-model)=
 ## Mathematical description of the Forward Model
 
-The Forward Model is the compositional forward model. It consists of individual
+The forward model is the compositional forward model. It consists of individual
 components, namely the ocean surface, the sea ice, and the atmosphere. At the
 low frequency channels of the {term}`CIMR` satellite, the sensitivity to
 atmospheric parameters is relatively small, but nevertheless the atmosphere
 needs to be considered.
-The forward model for Ocean and Atmosphere for frequencies 6.9, 10.7, 18.7, and 36.5 GHz is used from the AMSR2 ATBD from {cite}`Wentz2000`. 
+The forward model for ocean and atmosphere for frequencies 6.9, 10.7, 18.7, and 36.5&nbsp;GHz is used from the {term}`AMSR2` {term}`ATBD` from {cite}`Wentz2000`. 
 The surface contribution to the brightness temperature is given by
 ```{math}
 :label: eq:surface
@@ -199,17 +199,17 @@ T_{b,s} = C_{\text{ow}}ε_{\text{ow}}T_{\text{ow}}+C_{\text{fyi}}ε_{\text{fyi}}
 
 
 where $C_{\text{ow}}$, $C_{\text{fyi}}$, and $C_{\text{myi}}$ are the area
-fraction of ocean water, first year ice, and multi year ice, respectively.
+fraction of ocean water, first-year ice, and multiyear ice, respectively.
 $ε_{\text{ow}}$, $ε_{\text{fyi}}$, and $ε_{\text{myi}}$ are the emissivity of
-ocean water, first year ice, and multi year ice, respectively. $T_{\text{ow}}$,
+ocean water, first-year ice, and multiyear ice, respectively. $T_{\text{ow}}$,
 $T_{\text{fyi}}$, and $T_{\text{myi}}$ are the brightness temperature of ocean
-water, first year ice, and multi year ice, respectively. $C_{\text{ow}}$,
+water, first-year ice, and multiyear ice, respectively. $C_{\text{ow}}$,
 $C_{\text{fyi}}$, and $C_{\text{myi}}$ are adding up to one. 
 
 
 ### Sea ice type
 For sea ice, the frequency-dependent emissivities
-for first year ice and multi year ice are derived from {cite}`Mathew2009` as 
+for first-year ice and multiyear ice are derived from {cite}`Mathew2009` as 
 ```{math}
 :label: eq:Nizy
 U_{T, t, p}=(a_{t}T_{C}+b_{t}+273.15)ε_{t, p}
@@ -220,7 +220,7 @@ dependent coefficients from {cite}`Mathew2009` (see {numref}`tab:emtemp`), and
 $ε_{t,p}$ is the frequency-dependent emissivity for the polarization $p$ and ice type $t$ from {numref}`tab:c_ice`.
 {cite}`Mathew2009` did not provide parametrization for L-band, but to match a
 temperature dependence of emitted radiation at L-band we derive the effective
-temperature as with {eq}`eq:Nizy` using $a_t=0.1$ and $b_t=0$ for both, first year and multi year ice. The emissivities used for L-band are taken from {cite}`Scarlat2020` with slight modifications and are given in {numref}`tab:c_ice`.
+temperature as with {eq}`eq:Nizy` using $a_t=0.1$ and $b_t=0$ for both, first-year and multiyear ice. The emissivities used for L-band are taken from {cite}`Scarlat2020` with slight modifications and are given in {numref}`tab:c_ice`.
 
 ```{note}
 $T_{C}$ in this parametrization is the IST in the retrieval as the only temperature dependence. 
@@ -228,7 +228,7 @@ The assumption is that in thermal equilibrium the IST is equal to the air temper
 ```
 
 ### Sea ice thickness
-The ice thickness dependence at all frequencies is introduced via modification of the emission from the ice surface for the first year ice fraction.
+The ice thickness dependence at all frequencies is introduced via modification of the emission from the ice surface for the first-year ice fraction.
 The ice emissivity is modified by the ice thickness $\text{SIT}$ according to
 ```{math}
 :label: eq:ice_thickness
@@ -237,27 +237,26 @@ T_{b,p} = a_{p}-(a_{p}-b_{p})\exp\left(-\frac{\text{SIT}}{c_{p}}\right)
 with the index $p$ indicate polarization ($h$ or $v$) the coefficients $a_{p}$,
 $b_{p}$, and $c_{p}$ from {cite}`Scarlat2020` (see {numref}`tab:fy_thick`). To
 combine ice temperature and ice thickness dependence, the ice emissivity is
-modified by the ice thickness  by substituting $a_{p}$ with the ice temperature
-sedeitivedent $U_{T, t, p}$ from {eq}`eq:Nizy` for $t=\text{FYI}$. This was not performed in
+modified with the ice thickness by substituting $a_{p}$ with the ice temperature sensitivity
+$U_{T, t, p}$ from {eq}`eq:Nizy` for $t=\text{FYI}$. This was not performed in
 {cite}`Scarlat2020` but is essential for the minimization of the cost function
 to not introduce discontinuities in the forward model. The MYI emissivity is not
 affected by the ice thickness in this forward model, as it was not part of the
 thickness sensitivity study in {cite}`Scarlat2020`. As a consequence, the
 retrieval of ice thickness accounts only for the FYI fraction and thus is very
-noisy when the FYI fraction is small.
+noisy when the FYI fraction is small. However, the winter season during freeze-up conditions, this is not much of a restrictions as most of the ice is first-year ice thin multiyear ice is scarce.
 
 ### Ocean surface model
 
 While for the sea ice an empirical model is used for the emissivity, for the
 emission from the ocean the model uses the Fresnel reflection coefficient as a
 basis, which relies on the dielectric constant of the sea water. The emission from calm sea water after {cite}`Meissner2012` is given by
+
 ```{math}
-:label: eq:em_ocean
-\begin{align}
+:name: eq:em_ocean
 E_{0p} &= 1-|r_p|^2\\ 
 r_v &= \frac{ε\cos(θ_i)-\sqrt{ε-\sin^2(θ_i)}}{ε\cos(θ_i)+\sqrt{ε-\sin^2(θ_i)}}\\
 r_h &= \frac{\cos(θ_i)-\sqrt{ε-\sin^2(θ_i)}}{\cos(θ_i)+\sqrt{ε-\sin^2(θ_i)}}
-\end{align}
 ```
 
 with $ε$ being the dielectric constant of the sea water.
@@ -270,11 +269,11 @@ with $f_{\text{foam}}$ being the fraction of the ocean surface covered by foam a
 :label: eq:genroughness
 R_{\text{clear}} = (1-\beta)R_{\text{geo}}
 ```
-with $R_{\text{geo}}$ being the reflectivity from a standart geometric optics
+with $R_{\text{geo}}$ being the reflectivity from a standard geometric optics
 model{cite}`Wentz1975` defined later in {eq}`eq:roughness`. The combination can then be expressed by combining the foam and the
 diffraction term into one quantity $F=f_{\text{foam}} + \beta -f_{foam}\cdot β - f_{foam} κβ$, which is a monotonic function of wind speed and is addressed by
 {cite}`Wentz2000` as *catch-all* term. They determined $F$ empirically from
-experiments with various radiometeres. A fit for F is given by 
+experiments with various radiometers. A fit for F is given by 
 ```{math}
 :label: eq:catchall
 \begin{aligned}
@@ -386,10 +385,10 @@ upwelling effective temperature using a least-squares fit to the {term}`TWV`.
 The fit is given by 
 ```{math}
 :label: eq:atm
-\begin{align}
+\begin{aligned}
 T_D &=b_0+b_1V+b_2V^2+b_3V^3+b_4V^4+b_5\zeta(T_s-T_v)\\
 T_U &=T_D+b_6+b7V\\
-\end{align}
+\end{aligned}
 ```
 where $T_v = 273.16+0.8337 V - 3.029\cdot 10^{-5}V^{3.33}$ for V<48 and
 $T_v=301.16$ for V>48, $\zeta(x)=1.05x(1-x^2)/1200$ for $|x|<20\ \text{K}$ and
@@ -435,35 +434,35 @@ This makes the upwelling and downwelling brightness temperature differ only slig
 
 
 ### Addition of the L-band forward model
-The addition for 1.4GHz was done by {cite}`Scarlat2020` and is based on {cite}`Ruf2003`. 
+The addition for 1.4&nbsp;GHz was done by {cite}`Scarlat2020` and is based on {cite}`Ruf2003`. 
 
-The atmospheric attennuation for L-band is
+The atmospheric attenuation for L-band is
 ```{math}
 :label: eq:tau_l
 \tau = \exp\left(-\frac{0.009364 + 0.000024127V }{\cos(\theta)}\right),
 ```
 with $V$ being the {term}`TWV` in mm and $\theta$ being the incidence angle.
 
-The up- and downwelling brightness temperature for L-band is given by
+The up- and down-welling brightness temperature for L-band is given by
 ```{math}
 :label: eq:tbud_l
-\begin{align}
+\begin{aligned}
 T_{b,u} &= (1-\tau)(\text{ST}+258.15)\\
 T_{b,d} &= (1-\tau)(\text{ST}+263.15)
-\end{align}
+\end{aligned}
 ``` 
 with ST being the surface temperature in K. Over open ocean, this is
 {term}`SST` and over ice it is {term}`IST`. The composite upwelling and
-downwelling brightness temperature is then
+down-welling brightness temperature is then
 calculated with the weight of the ice concentration.
 
 The effect of wind roughening for L-band over open ocean is given by
 ```{math}
 :label: eq:rough_L
-\begin{align}
+\begin{aligned}
 \epsilon_h &= E_{0,h} + u(0.0007 + 0.000015\theta) \\
 \epsilon_v &= E_{0,v} + 0.0007u, 
-\end{align}
+\end{aligned}
 ```
 with $u$ being the wind speed in m/s, $\theta$ the incidence angle in degrees, and $E_{0,h}$ and $E_{0,v}$ being the emissivity of the surface in the horizontal and vertical polarization from {eq}`eq:em_ocean`.
 
@@ -474,45 +473,97 @@ T_{b,p} = T_{b,u} + \left((T_{c} 𝜏 + T_{b,d})(1 − \epsilon_p) + T_{b,s}\rig
 ```
 with $p$ being the polarization and $T_c$ being the cosmic background temperature. $T_{b,s}$ is the surface emitted brightness temperature for the combined surface and $\epsilon_p$ is the emissivity of the combined surface for the polarization $p$.
 
+(OZA)=
+### Correction for variation in incidence angle
+While the algorithm is designed for a fixed incidence angle, the incidence
+angle is varying slightly depending on the feed horn which is used for the
+observation which, in turn, changes the brightness temperatures. We attempt a straightforward correction for the incidence angle dependence of the
+brightness temperatures by estimating the surface reflectivity using the
+polarization information for a given observation. The assumption here is a
+simple Fresnel reflection model without an atmospheric contribution. First, we
+define the Fresnel reflection coefficient of the surface with given effective
+permittivity $\varepsilon$ and incidence angle $\theta_i$ as described in {numref}`eq:em_ocean`. The effective permittivity is used here which is a simplification calculated with the assumption that the atmosphere is transparent. We use an effective surface temperature $T_{\text{eff}}$ which we set to $T_{\text{eff}}=240$ if $T_{b,v}<220$ K otherwise it is set to $T_{\text{eff}}=T_{b,v}+20$ K as an approximation. Then we have
+```{math}
+:label: eq:eff_temp
+T_{\text{eff}} = \frac{T_{b,h}(θ_i) \cdot (1-r_h(ε,θ_i)) + 
+T_{b,v}(θ_i)\cdot(1-r_v(ε,θ_i))}{2}
+```
+which we can solve for a given $θ_i$ to get the effective permittivity as
+```{math}
+:label: eq:eff_eps
+ε_{\text{eff}} = \operatorname{arg\,min}_{ε \in \mathbb{R}} \left| \left( \frac{T_{b,h}(θ_i)}{T_{\text{eff}}} - (1-r_h(ε,θ_i))\right)^2 +
+\left( \frac{T_{b,v}(θ_i)}{T_{\text{eff}}} - (1-r_v(ε,θ_i))\right)^2 \right|
+```
+The corrected brightness temperature for the incidence angle $θ_{\text{ref}}$ at vertical polarization is then given by
+```{math}
+:label: eq:incidence
+T_{b,p}(θ_{\text{ref}}) =  T_{b,p}(\theta) + \left(r_p(ε_{\text{eff}},θ_{\text{ref}}) - r_p(ε_{\text{eff}},θ)\right) \cdot ζ
+```
+
+with $θ$ being the incidence angle of the observation. In theory, we expect the correction factor $ζ$ to be equal to the effective temperature $T_{\text{eff}}$.
+Our only source for the incidence angle dependence is a simulated scene from the SCEPS project, refered to as the SCEPS polar scene in this document. In this scene, the small differences in incidence angle between different scans are included and modeled in the brightness temperatures. 
+For $T_{b,v}$ this correction works for all CIMR frequencies on the SCEPS polar
+scene with a correction factor $ζ=T_{\text{eff}}$ as expected. For $T_{b,h}$ a slightly different correction factor was found in order
+to remove the incidence angle dependence of the brightness temperatures in the SCEPS polar scene. The origin of this factor is not
+yet understood and is subject to further investigation. In this version of the
+algorithm, the correction factor $ζ$ for $T_{b,h}$ is shown in the table {numref}`tab:tbh_corr`
+and is applied to the $T_{b,h}$ for each channel.
+
+```{list-table} "Correction factor for $T_{b,h}$ for different channels"
+:name: "tab:tbh_corr"
+:header-rows: 1
+
+* - Band
+  - Correction factor $ζ$
+* - L_BAND
+  - $T_{\text{eff}}$
+* - C_BAND
+  - $T_{\text{eff}} - T_{b,h}(θ)$
+* - X_BAND
+  - $(T_{\text{eff}} - T_{b,h}(θ))/0.9$
+* - KU_BAND
+  - $(T_{\text{eff}} - T_{b,h}(θ))/1.4$
+* - KA_BAND
+  - $(T_{\text{eff}} - T_{b,h}(θ))/1.8$
+```
+
+This method requires a non-linear optimization for each observation, which can be computationally costly. It is expected to work without modification only on the SCEPS simulated scene as it is probably similar to the method used to create the incidence angle dependence in the scene. A real CIMR scene might require a different approach.
+
+```{note}
+The proposed method here is solely to correct the incidence angle dependence, the involved effective permittivity $ε_{\text{eff}}$ and effective temperature $T_{\text{eff}}$ should not be confused with the physical permittivity of the surface.
+```
+
 
 ## Input data
-As input for the retrieval, the L1B data product from the CIMR instrument,
-where mainly brightness temperatures from the instrument and their
-uncertainties are required. Technically, missing values are allowed for
-both, in case of malfunctioning channels, but the retrieval retrieval
-uncertainties will be larger. In addition, for a better contrain of the
+The input to the retrieval is using the L1B data product from the CIMR instrument, which includes the brightness temperatures of the channels 1.4, 6.9, 10.7, 18.7, and 36.5&nbsp;GHz and their uncertainties.
+Technically, missing values are allowed, in case of malfunctioning channels, but the retrieval
+uncertainties will be larger. In addition, for a better constrain of the
 solution space, {term}`ECMWF` analysis data are highly recommended as additional input (see {ref}`sec:auxiliary_data` below). 
 $\mathbf{y}$ and $\mathbf{S}_e$ from {eq}`eq:chi2` are set with the brightness temperatures and their uncertainties from the L1B data product.
 
 
 ## Output data
 
-The output data will include the retrieved geophysical parameteres listed in
-{eq}`eqxy` and their posterior uncertainties. In addition, quality flags will
-be written be derived for each quantity and the retrieval procedure in general.
-The exact definition of the flags will be decided on, at a later stage. A
-backup inversion mechanism will be implemented using a different optmization
-scheme, in case the main retrieval fails. The exact method is yet to be decided
-on, but there are flags reserved for this purpose.
+The output data will include the retrieved geophysical parameters listed in equation
+{eq}`eqxy` and their posterior uncertainties. In addition, quality flags
+are derived for each quantity and the retrieval procedure in general.
 
 (sec:auxiliary_data)=
-### Auxiliary data
+## Auxiliary data
 {term}`ECMWF` surface analysis data is used as background values for the retrieval. The
 variables used are {term}`WSP`, {term}`TWV`, {term}`CLW`, {term}`T2M`,
 {term}`TSK`. They are used to fill the $\mathbf{S}_a$ matrix and the
-$\mathbf{x}_a$ in {eq}`eq:chi2`. For near real time retrieval, the
-$\mathbf{S}_a$ and $\mathbf{x}_a$ can used with monthly or seasonal values, as
-the retrieval is not sensitive to the exact values of the background variables.
+$\mathbf{x}_a$ in equation {eq}`eq:chi2`. For near real-time retrieval, the
+$\mathbf{S}_a$ and $\mathbf{x}_a$ can use monthly or seasonal values, as
+the retrieval is not sensitive to the exact values of the background variables with the rather wide covariance matrix.
+```{note}
+In this document a retrieval with fixed background values and TB error is used. This may alter the results of the retrieval on the test cards compared to actual data where the background values are from ECMWF analysis data.
+```
 
-### Ancillary data
-Ancillary data is not planned to be used in this retrieval at this stage.
+## Validation process
 
-### Validation process
-
-For validation of the Multi Parameter Retrieval, the comparison to the
+For validation of the multi parameter retrieval, the comparison to the
 individual specialized products are planned, with the addition of their
 validation datasets. For a complete retrieval with currently operational
-instruments, however, the time period of the validation data must be alligned
+instruments, however, the time period of the validation data must be aligned
 with the operational period of the {term}`AMSR2` and {term}`SMOS` sensors.
-
-

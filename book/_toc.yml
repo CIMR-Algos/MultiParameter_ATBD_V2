@@ -21,12 +21,14 @@ chapters:
     title: Baseline Algorithm Definition
   - file: algorithm_input_output_data_definition
     title: Algorithm Input and Output Data Definition (IODD)
-  - file: algorithm_performance_assessment
-    title: Algorithm Performance Assessment
+  #  - file: algorithm_performance_assessment
+  #    title: Algorithm Performance Assessment
   - file: first_assessment.ipynb
     title: First assessment of the algorithm
   - file: L1b_testscenes.ipynb
     title: L1b testscene
+  - file: SCEPS_testcard_evaluation.ipynb
+    title: SCEPS polar test card evaluation
   - file: references
     title: References
   - file: annex
