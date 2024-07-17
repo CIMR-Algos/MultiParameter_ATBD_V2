@@ -6,7 +6,7 @@ using PythonCall
 const pr = Ref{Py}()
 const np = Ref{Py}()
 
-function __init__()
+function __init__() #this is called when the module is loaded
     np[] = pyimport("numpy")
     pr[] = pyimport("pyresample")
 end
@@ -22,6 +22,7 @@ using Accessors
 using NCDatasets
 using NearestNeighbors
 using Proj
+using Optim
 
 
 LLtoEASE2n = Proj.Transformation("epsg:4326", "epsg:6931")
@@ -55,10 +56,7 @@ export prepare_oem_tbs
 export read_ecmwf
 export get_ecmwf_on_NSIDC
 
-
-function run_oem(band_data::T, band_nedt::Union{Nothing,T}=nothing) where {T<:AbstractMatrix}
-
-    sqrtS_e_fix = SA[5.0, 5.0,  #1.4v,h
+const sqrtS_e_fix = SA[5.0, 5.0,  #1.4v,h
         2.356, 4.832,  #6.9v,h
         1.609, 5.460,  #10.6v,h
         0.977, 4.932,  #18.7v,h
@@ -66,12 +64,16 @@ function run_oem(band_data::T, band_nedt::Union{Nothing,T}=nothing) where {T<:Ab
         2.540, 2.65, # 36.5v,h
         #200+4.903, 200+6.274] #89v,h #no weight in CIMR
         ]
-    S_p = Diagonal(SA[10, #wsp
+
+const S_p = Diagonal(SA[
+        10, #wsp
         10, #twv
         #0.0204, #clw
         0.5, #clw
-        10.0, #sst
-        10.0, #ist
+        #10.0, #sst
+        #10.0, #ist
+        3.0, #sst
+        3.0, #ist
         0.3, #ic #good guess when initial value from TBs
         0.3, #myif # good guess when initial value from TB
         100.0, #sit
@@ -79,12 +81,13 @@ function run_oem(band_data::T, band_nedt::Union{Nothing,T}=nothing) where {T<:Ab
     ] .^ 2) #sit [cm]
 
     # startguess&background for geophysical values
-    Sg = SA[
+const Sg = SA[
         5.0, #wsp
         2.0, #twv
         0.0204, #clw
         275.0, #sst
-        270.0, #ist
+        #270.0, #ist
+        260.0, #ist
         0.5, #ic #good guess when initial value from TBs
         0.5, #myif # good guess when initial value from TBs
         100.0, #sit
@@ -92,29 +95,72 @@ function run_oem(band_data::T, band_nedt::Union{Nothing,T}=nothing) where {T<:Ab
     ]
 
 
+"""
+    run_oem(band_data::T; band_error=nothing, apriori=nothing, apriori_unc=nothing) where {T<:AbstractMatrix}
+
+    Run the OEM retrieval for a given band_data matrix. The band_data matrix should have the following structure:
+    - each row corresponds to a measurement
+    - column contins brightness temperatures in the following order:
+    1.4V,1.4H,6.9V,6.9H,10.6V,10.6H,18.7V,18.7H,36.5V,36.5H
+
+    band_error is an optional matrix with the same structure as band_data, containing the errors of the measurements
+
+    apriori is an optional matrix with the same number of rows as band_data and 9 columns. Each row contains the apriori values for the geophysical parameters in the following order:
+    wind speed, total water vapor, cloud liquid water, sea surface temperature, ice surface temperature, ice concentration, multiyear ice fraction, ice thickness, sea surface salinity
+
+    apriori_unc is an optional matrix with the same number of rows as band_data and 9 columns. Each row contains the uncertainties of the apriori values, i.e., how much the retrieval is allowed to deviate from the apriori values
+"""
+function run_oem(band_data::T; band_error=nothing, apriori=nothing, apriori_unc=nothing) where {T<:AbstractMatrix}
     l = size(band_data, 1)
+    #construct the arrays for the input
+    if isnothing(apriori)
+        apriori = [Sg for _ = 1:l]
+    else
+        apriori = [SVector{9,Float64}(apriori[j, i] for i in 1:9) for j = 1:l]
+    end
+
+    if isnothing(band_error)
+        S_e_collection = let sqrtS_ee = sqrtS_e_fix
+             [Diagonal(SVector{14,Float64}(sqrtS_ee[1], sqrtS_ee[2], sqrtS_ee[3], sqrtS_ee[4],
+                sqrtS_ee[5], sqrtS_ee[6], sqrtS_ee[7], sqrtS_ee[8],
+                200, 200, sqrtS_ee[9], sqrtS_ee[10], 200, 200) .^ 2) for _ = 1:l]
+        end
+    else
+        S_e_collection = [Diagonal(SVector{14,Float64}(
+            band_error[i, 1], band_error[i, 2], band_error[i, 3], band_error[i, 4], band_error[i, 5], band_error[i, 6], band_error[i, 7], band_error[i, 8], 200, 200, band_error[i, 9], band_error[i, 10], 200, 200).^ 2) for i = 1:l]
+    end
+
+    if isnothing(apriori_unc)
+        S_p_collection = [S_p for _ = 1:l]
+    else
+        S_p_collection = [Diagonal(SVector{9,Float64}(apriori_unc[i, j]^2 for j in 1:9)) for i = 1:l]
+    end
+
+    #construct the arrays for the output
     dat = Array{Float64}(undef, l, 9)
     err = Array{Float64}(undef, l, 9)
     res = Array{Float64}(undef, l, 10)
     its = Array{Float64}(undef, l)
 
     cimridx = [1:8; 11:12]
+    
+    lm_retrieval(SVector{14,Float64}(ones(14)*200.0), Diagonal(@SVector rand(14)),S_p, Sg, fw_fnct_amsre) #warmup and precompile
+    
     @sync Threads.@threads for i = 1:l #multi-threaded loop comment out if segfaults
     #for i = 1:l #single threaded loop, uncomment if multi-threading causes segfaults
         Tbs = SVector{10,Float64}(band_data[i, j] for j in 1:10)
-        sqrtS_ee = isnothing(band_nedt) ? sqrtS_e_fix : SVector{10,Float64}(band_nedt[i, j] for j in 1:10)
         if Tbs[1] < 50
             dat[i, :] .= NaN
             err[i, :] .= NaN
             res[i, :] .= NaN
+            its[i] = NaN
             continue
         end
 
-        Tbs = SVector{14,Float64}(Tbs[1], Tbs[2], Tbs[3], Tbs[4], Tbs[5], Tbs[6], Tbs[7],
-            Tbs[8], 200, 200, Tbs[9], Tbs[10], 200, 200)
-        S_e = Diagonal(SVector{14,Float64}(sqrtS_ee[1], sqrtS_ee[2], sqrtS_ee[3], sqrtS_ee[4],
-            sqrtS_ee[5], sqrtS_ee[6], sqrtS_ee[7], sqrtS_ee[8],
-            200, 200, sqrtS_ee[9], sqrtS_ee[10], 200, 200) .^ 2) #weight of non-CIMR bands is very low
+        Tbs = SVector{14,Float64}(Tbs[1], Tbs[2], Tbs[3], Tbs[4], Tbs[5], Tbs[6], Tbs[7], Tbs[8], 200, 200, Tbs[9], Tbs[10], 200, 200)
+        S_e = S_e_collection[i]
+        Sg = apriori[i]
+        S_p = S_p_collection[i]
 
         a, c, b,it = lm_retrieval(Tbs, S_e, S_p, Sg, fw_fnct_amsre)
         c = diag(c)

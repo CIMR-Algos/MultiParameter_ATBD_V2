@@ -111,8 +111,8 @@ function store_output(outfn, alldata, grid)
         ncid.attrib["instrument"]="CIMR"
         ncid.attrib["product_level"]="2"
        
-        ncid.attrib["product_name"]="Multi Parameter Retrieval"
-        ncid.attrib["variable_list"]="windspeed, total water vapor, cloud liquid water, sea surface temperature, ice surface temperature, sea ice concentration, multi year ice fraction, first year ice thickness, sea surface salinity"
+        ncid.attrib["product_name"]="multi parameter retrieval"
+        ncid.attrib["variable_list"]="wind speed, total water vapor, cloud liquid water, sea surface temperature, ice surface temperature, sea ice concentration, multi year ice fraction, first year ice thickness, sea surface salinity"
         ncid.attrib["product_version"]="0.1"
         ncid.attrib["author"]="Marcus Huntemann"
         ncid.attrib["author_email"]="macrus.huntemann@uni-bremen.de"
