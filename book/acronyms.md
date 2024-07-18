@@ -29,11 +29,17 @@ IST
 JAXA
     {term}`Japan Aerospace Exploration Agency`
 
+MPR 
+    Multi Parameter Retrieval
+
 MRC
     Mission Requirement Consolidation
 
 MYIF
     {term}`Multi Year Ice Fraction`
+
+OZA
+    Observation Zenith Angle
 
 PSD
     Product Specification Document

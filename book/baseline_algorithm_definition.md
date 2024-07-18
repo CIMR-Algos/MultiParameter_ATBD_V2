@@ -253,7 +253,7 @@ emission from the ocean the model uses the Fresnel reflection coefficient as a
 basis, which relies on the dielectric constant of the sea water. The emission from calm sea water after {cite}`Meissner2012` is given by
 
 ```{math}
-:name: eq:em_ocean
+:label: eq:em_ocean
 E_{0p} &= 1-|r_p|^2\\ 
 r_v &= \frac{ε\cos(θ_i)-\sqrt{ε-\sin^2(θ_i)}}{ε\cos(θ_i)+\sqrt{ε-\sin^2(θ_i)}}\\
 r_h &= \frac{\cos(θ_i)-\sqrt{ε-\sin^2(θ_i)}}{\cos(θ_i)+\sqrt{ε-\sin^2(θ_i)}}
@@ -464,7 +464,7 @@ The effect of wind roughening for L-band over open ocean is given by
 \epsilon_v &= E_{0,v} + 0.0007u, 
 \end{aligned}
 ```
-with $u$ being the wind speed in m/s, $\theta$ the incidence angle in degrees, and $E_{0,h}$ and $E_{0,v}$ being the emissivity of the surface in the horizontal and vertical polarization from {eq}`eq:em_ocean`.
+with $u$ being the wind speed in m/s, $\theta$ the incidence angle in degrees, and $E_{0,h}$ and $E_{0,v}$ being the emissivity of the surface in the horizontal and vertical polarization from Eq. {eq}`eq:em_ocean`.
 
 ### Brightness temperature at instrument level 
 Bringing together the different models for all frequencies, the brightness temperature at the instrument level is given by
@@ -482,7 +482,7 @@ brightness temperatures by estimating the surface reflectivity using the
 polarization information for a given observation. The assumption here is a
 simple Fresnel reflection model without an atmospheric contribution. First, we
 define the Fresnel reflection coefficient of the surface with given effective
-permittivity $\varepsilon$ and incidence angle $\theta_i$ as described in {numref}`eq:em_ocean`. The effective permittivity is used here which is a simplification calculated with the assumption that the atmosphere is transparent. We use an effective surface temperature $T_{\text{eff}}$ which we set to $T_{\text{eff}}=240$ if $T_{b,v}<220$ K otherwise it is set to $T_{\text{eff}}=T_{b,v}+20$ K as an approximation. Then we have
+permittivity $\varepsilon$ and incidence angle $\theta_i$ as described in {eq}`eq:em_ocean`. The effective permittivity is used here which is a simplification calculated with the assumption that the atmosphere is transparent. We use an effective surface temperature $T_{\text{eff}}$ which we set to $T_{\text{eff}}=240$ if $T_{b,v}<220$ K otherwise it is set to $T_{\text{eff}}=T_{b,v}+20$ K as an approximation. Then we have
 ```{math}
 :label: eq:eff_temp
 T_{\text{eff}} = \frac{T_{b,h}(θ_i) \cdot (1-r_h(ε,θ_i)) + 
@@ -501,7 +501,7 @@ T_{b,p}(θ_{\text{ref}}) =  T_{b,p}(\theta) + \left(r_p(ε_{\text{eff}},θ_{\tex
 ```
 
 with $θ$ being the incidence angle of the observation. In theory, we expect the correction factor $ζ$ to be equal to the effective temperature $T_{\text{eff}}$.
-Our only source for the incidence angle dependence is a simulated scene from the SCEPS project, refered to as the SCEPS polar scene in this document. In this scene, the small differences in incidence angle between different scans are included and modeled in the brightness temperatures. 
+Our only source for the incidence angle dependence is a simulated scene from the SCEPS project, referred to as the SCEPS polar scene in this document. In this scene, the small differences in incidence angle between different scans are included and modeled in the brightness temperatures. 
 For $T_{b,v}$ this correction works for all CIMR frequencies on the SCEPS polar
 scene with a correction factor $ζ=T_{\text{eff}}$ as expected. For $T_{b,h}$ a slightly different correction factor was found in order
 to remove the incidence angle dependence of the brightness temperatures in the SCEPS polar scene. The origin of this factor is not

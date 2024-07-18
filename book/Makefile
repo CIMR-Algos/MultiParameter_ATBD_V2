@@ -6,5 +6,8 @@ pdf:
 pdfl:
 	JUPYTER_BOOK_BUILD=true jupyter-book build . --builder pdflatex
 
-clean:
+purge:
 	rm -rf ./_build
+
+clean:
+	jupyter-book clean .

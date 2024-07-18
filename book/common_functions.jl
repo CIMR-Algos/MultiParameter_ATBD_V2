@@ -230,9 +230,9 @@ function markdown_table(results,title,label;include_mean=false,show_units=true)
                 outstring *= "| $(uppercase(var)) |"
             end
             if include_mean
-                outstring *= mapreduce(x->" $(@sprintf "%.3f" x.meanvalue) | $(@sprintf "%.3f" x.mean) | $(@sprintf "%.3f" x.std) |\n",*,(vals[direction] for direction in directions))
+                outstring *= mapreduce(x->" $(@sprintf "%.3f" x.meanvalue) | $(@sprintf "%.3f" x.mean) | $(@sprintf "%.3f" x.std) |",*,(vals[direction] for direction in directions)) *"\n"
             else
-                outstring *= mapreduce(x->" $(@sprintf "%.3f" x.mean) | $(@sprintf "%.3f" x.std) |\n",*,(vals[direction] for direction in directions))
+                outstring *= mapreduce(x->" $(@sprintf "%.3f" x.mean) | $(@sprintf "%.3f" x.std) |",*,(vals[direction] for direction in directions)) *"\n"
             end
             #outstring *= "| $(uppercase(var)) | $(@sprintf "%.3f" vals.mean) | $(@sprintf "%.3f" vals.std) |\n"
         end

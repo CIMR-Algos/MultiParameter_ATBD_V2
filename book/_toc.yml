@@ -27,8 +27,6 @@ chapters:
     title: First assessment of the algorithm
   - file: L1b_testscenes.ipynb
     title: L1b testscene
-  - file: SCEPS_testcard_evaluation.ipynb
-    title: SCEPS polar test card evaluation
   - file: references
     title: References
   - file: annex
