@@ -17,8 +17,8 @@ The complete list of all output variables output in the EASE2 grid for each hemi
 
 | Abbreviation | CF variable name | Description | Shape/Amount |
 | --- | --- | --- | --- |
-| WSP | wind_speed | Wind speed | (1440,1440) |
-| WSPerr | wind_speed_error | Wind speed error | (1440,1440) |
+| WS | wind_speed | Wind speed | (1440,1440) |
+| WSerr | wind_speed_error | Wind speed error | (1440,1440) |
 | TWV | total_water_vapour | Total water vapour | (1440,1440) |
 | TWVerr | total_water_vapour_error | Total water vapour error | (1440,1440) |
 | CLW | cloud_liquid_water | Cloud liquid water | (1440,1440) |
@@ -29,8 +29,8 @@ The complete list of all output variables output in the EASE2 grid for each hemi
 | ISTerr | ice_surface_temperature_error | Ice surface temperature error | (1440,1440) |
 | SIC | sea_ice_concentration | Sea ice concentration | (1440,1440) |
 | SICerr | sea_ice_concentration_error | Sea ice concentration error | (1440,1440) |
-| MYIF | multi_year_ice_fraction | Multi-year ice fraction | (1440,1440) |
-| MYIFerr | multi_year_ice_fraction_error | Multi-year ice fraction error | (1440,1440) |
+| MYI | multi_year_ice_fraction | Multi-year ice fraction | (1440,1440) |
+| MYIerr | multi_year_ice_fraction_error | Multi-year ice fraction error | (1440,1440) |
 | SIT | sea_ice_thickness | Sea ice thickness | (1440,1440) |
 | SITerr | sea_ice_thickness_error | Sea ice thickness error | (1440,1440) |
 | SSS | sea_surface_salinity | Sea surface salinity | (1440,1440) |
@@ -39,13 +39,13 @@ The complete list of all output variables output in the EASE2 grid for each hemi
 
 ## Output data
 
-The output data consist of the parameters, namely {term}`WSP`, {term}`TWV`,
-{term}`CLW`, {term}`SST`, {term}`IST`, {term}`SIC`, {term}`MYIF` and
+The output data consist of the parameters, namely {term}`WS`, {term}`TWV`,
+{term}`CLW`, {term}`SST`, {term}`IST`, {term}`SIC`, {term}`MYI` and
 {term}`SIT`, {term}`SSS`, as well as time and location for the resampling. The uncertainties are assumed
 Gaussian in the retrieval and are provided along with the parameters. 
 
 ## Auxiliary data
 As auxiliary data {term}`ECMWF`
 surface analysis data is used for background values in the retrieval. The
-variables used are {term}`WSP`, {term}`TWV`, {term}`CLW`, {term}`T2M`,
+variables used are {term}`WS`, {term}`TWV`, {term}`CLW`, {term}`T2M`,
 {term}`TSK`. 

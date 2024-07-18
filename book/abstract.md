@@ -2,7 +2,7 @@
 
 This is the {term}`ATBD` of the multi parameter retrieval. It consists of several
 empirical and physical models that are used to retrieve the parameters of
-{term}`SIC`, {term}`SIT`, {term}`MYIF`, {term}`WSP`, {term}`TWV`, {term}`CLW`,
+{term}`SIC`, {term}`SIT`, {term}`MYI`, {term}`WS`, {term}`TWV`, {term}`CLW`,
 {term}`SST`, {term}`IST` and {term}`SSS` in a self-consistent way by inverting
 a forward model. The method respects individual contributions to the brightness
 temperatures at each frequency and their uncertainties provided from the

@@ -33,7 +33,7 @@ Japan Aerospace Exploration Agency
     The Japan Aerospace Exploration Agency {term}`JAXA` is a Japanese government agency responsible for space exploration.
 
 Multi Year Ice Fraction
-    The Multi Year Ice Fraction {term}`MYIF` is the fraction of the sea ice which is multi year ice. It is a measure of the amount of multi year ice in a given area. It is usually expressed as a percentage.
+    The Multi Year Ice Fraction {term}`MYI` is the fraction of the sea ice which is multi year ice. It is a measure of the amount of multi year ice in a given area. It is usually expressed as a percentage.
 
 Sea Ice Concentration
     The Sea Ice Concentration {term}`SIC` is the fraction of the sea surface covered by sea ice. It is a measure of the amount of sea ice in a given area. It is usually expressed as a percentage.
@@ -63,5 +63,5 @@ Total Water Vapor
     The Total Water Vapor {term}`TWV` is a measure of the amount of water vapor in the atmosphere along a atmospheric column. It is usually expressed in kg/m^3.
 
 Wind Speed
-    The Wind Speed {term}`WSP` is the speed of the wind in arbitrary direction. It is usually expressed in m/s.
+    The Wind Speed {term}`WS` is the speed of the wind in arbitrary direction. It is usually expressed in m/s.
 ```

@@ -29,13 +29,13 @@ IST
 JAXA
     {term}`Japan Aerospace Exploration Agency`
 
-MPR 
+MPR
     Multi Parameter Retrieval
 
 MRC
     Mission Requirement Consolidation
 
-MYIF
+MYI
     {term}`Multi Year Ice Fraction`
 
 OZA
@@ -80,7 +80,7 @@ TSK
 TWV
     {term}`Total Water Vapor`
 
-WSP
+WS
     {term}`Wind Speed`
 
 ```

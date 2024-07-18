@@ -2,9 +2,9 @@
 # Learn more at https://jupyterbook.org/customize/config.html
 
 title: CIMR L2 Multi Parameter Retrieval ATBD v2
-author: "Marcus Huntemann, Janna Rückert, Gunnar Spreen, University of Bremen"
+#author: "Marcus Huntemann, Janna Rückert, Gunnar Spreen, University of Bremen"
+author: Marcus Huntemann, Janna Rückert, Gunnar Spreen
 logo: logo.jpg
-
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
@@ -23,9 +23,13 @@ bibtex_bibfiles:
 # Format the citation style
 sphinx:
   config:
+    latex_elements:
+      preamble: |
+        \renewcommand{\printindex}{}
     nb_render_markdown_format: myst
     bibtex_reference_style: author_year
     html_show_copyright: false
+    mermaid_cmd: "../node_modules/.bin/mmdc"
   extra_extensions:
     - sphinxcontrib.mermaid
 

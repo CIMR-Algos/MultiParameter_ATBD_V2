@@ -19,7 +19,7 @@ high influence on the retrieval, on ocean because of SSS and sea ice due to SIT.
 
 ## Level-2 end to end algorithm functional flow diagram
 
-The following diagram shows the functional flow of the algorithm.
+The diagram below shows the functional flow of the algorithm.
 
 ```{mermaid}
 graph TD
@@ -147,13 +147,13 @@ T_{b,h,36.5}\\
 T_{b,v,36.5}\\
 \end{bmatrix}, \quad
 \mathbf x= \begin{bmatrix}
-\text{WSP}\\
+\text{WS}\\
 \text{TWV}\\
 \text{CLW}\\
 \text{SST}\\
 \text{IST}\\
 \text{SIC}\\
-\text{MYIF}\\
+\text{MYI}\\
 \text{SIT}\\
 \text{SSS}\\
 \end{bmatrix}
@@ -367,7 +367,7 @@ to the brightness temperatures at surface level, the brightness temperature is j
 
 
 With $C_{\text{myi}}+C_{\text{fyi}}=\text{SIC}$ and $\text{SIC}\cdot C_\text{myi} =
-\text{MYIF}$ being part of the state vector {eq}`eqxy`, the state defines
+\text{MYI}$ being part of the state vector {eq}`eqxy`, the state defines
 the surface area fraction of all three considered surface types.
 
 The reflectivity of
@@ -551,7 +551,7 @@ are derived for each quantity and the retrieval procedure in general.
 (sec:auxiliary_data)=
 ## Auxiliary data
 {term}`ECMWF` surface analysis data is used as background values for the retrieval. The
-variables used are {term}`WSP`, {term}`TWV`, {term}`CLW`, {term}`T2M`,
+variables used are {term}`WS`, {term}`TWV`, {term}`CLW`, {term}`T2M`,
 {term}`TSK`. They are used to fill the $\mathbf{S}_a$ matrix and the
 $\mathbf{x}_a$ in equation {eq}`eq:chi2`. For near real-time retrieval, the
 $\mathbf{S}_a$ and $\mathbf{x}_a$ can use monthly or seasonal values, as
