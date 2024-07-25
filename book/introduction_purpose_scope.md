@@ -6,7 +6,7 @@ will be described in this document. It is applied to {term}`CIMR` L1b data which
 is resampled to a common footprint for all frequencies (we call L1R). It is
 using all {term}`CIMR` frequency channels, namely 1.4, 6.9, 10.7, 18.7, and 36.5
 GHz and {term}`ECMWF` Analysis as input. The output of this multi parameter
-retrieval is in the same resolution format, i.e., L2R. It is physically
+retrieval is in then resampled to the EASE2 grid for the Northern and Southern hemisphere. It is physically
 consistent and can be used in turn as a priori for the other retrievals as described in the different
 CIMR DEVALGO ATBDs.
 
@@ -27,4 +27,4 @@ idea of a fixed state observation, the current data for the development of the
 algorithm is coming from a potential divergent state. This is when
 {term}`AMSR2` and {term}`SMOS` have different overflight times. This may lead
 to inconsistent results with higher residuals and may even prevent convergence
-of the retrieval. At the moment daily means are used as input, which is only reliable for a stable atmospheric and surface state.
+of the retrieval. For this document daily means are used as input, which is only reliable for a stable atmospheric and surface state.

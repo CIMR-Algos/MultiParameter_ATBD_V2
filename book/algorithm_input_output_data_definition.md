@@ -2,6 +2,11 @@
 
 ## Input data
 
+The input to the retrieval is using the L1B data product from the CIMR instrument, which includes the brightness temperatures of the channels 1.4, 6.9, 10.7, 18.7, and 36.5&nbsp;GHz and their uncertainties.
+Technically, missing values are allowed, in case of malfunctioning channels, but the retrieval
+uncertainties will be larger. In addition, for a better constrain of the
+solution space, {term}`ECMWF` analysis data are highly recommended as additional input (see {ref}`sec:auxiliary_data` below).
+The $\mathbf{y}$ and $\mathbf{S}_e$ from {eq}`eq:chi2` are set with the brightness temperatures and their uncertainties from the L1B data product.
 The input data for the multi-parameter retrieval includes all channels at
 horizontal and vertical polarization and their uncertainties coming from the
 L1b processor. In addition, time and location is required for the resampling of the variables. The algorithm is then applied on the C-band footprints, with all other channels being resampled to it. The
@@ -13,6 +18,15 @@ uncertainties are assumed Gaussian in the retrieval.
 | L1B NeΔT | Random radiometric uncertainty of all channels | full swath or section of it (Nscans, Npos) |
 
 
+## Output data
+
+The output data will include the retrieved geophysical parameters listed in equation
+{eq}`eqxy` and their posterior uncertainties. In addition, quality flags
+are derived for each quantity and the retrieval procedure in general.
+The parameters are are: {term}`WS`, {term}`TWV`,
+{term}`CLW`, {term}`SST`, {term}`IST`, {term}`SIC`, {term}`MYI` and
+{term}`SIT`, {term}`SSS`, as well as time and location for the resampling. The uncertainties are assumed
+Gaussian in the retrieval and are provided along with the parameters. 
 The complete list of all output variables output in the EASE2 grid for each hemisphere is given in the table below.
 
 | Abbreviation | CF variable name | Description | Shape/Amount |
@@ -37,15 +51,14 @@ The complete list of all output variables output in the EASE2 grid for each hemi
 | SSSerr | sea_surface_salinity_error | Sea surface salinity error | (1440,1440) |
 
 
-## Output data
-
-The output data consist of the parameters, namely {term}`WS`, {term}`TWV`,
-{term}`CLW`, {term}`SST`, {term}`IST`, {term}`SIC`, {term}`MYI` and
-{term}`SIT`, {term}`SSS`, as well as time and location for the resampling. The uncertainties are assumed
-Gaussian in the retrieval and are provided along with the parameters. 
-
+(sec:auxiliary_data)=
 ## Auxiliary data
-As auxiliary data {term}`ECMWF`
-surface analysis data is used for background values in the retrieval. The
+{term}`ECMWF` surface analysis data is used as background values for the retrieval. The
 variables used are {term}`WS`, {term}`TWV`, {term}`CLW`, {term}`T2M`,
-{term}`TSK`. 
+{term}`TSK`. They are used to fill the $\mathbf{S}_a$ matrix and the
+$\mathbf{x}_a$ in equation {eq}`eq:chi2`. For near real-time retrieval, the
+$\mathbf{S}_a$ and $\mathbf{x}_a$ can use monthly or seasonal values, as
+the retrieval is not sensitive to the exact values of the background variables with the rather wide covariance matrix.
+```{note}
+In this document a retrieval with fixed background values and TB error is used (execpt in {ref}`first-assessment`). This may alter the results of the retrieval on the test cards compared to actual data where the background values are from ECMWF analysis data.
+```

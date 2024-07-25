@@ -1,6 +1,5 @@
 # Annex
-## Forward model coefficients
-## Tables 
+## Tables for forward model
 The tables listed here are part of the forward model used in the multi parameter
 retrieval. The following Tables {numref}`%s <tab:mc_atmo>`, {numref}`%s
 <tab:RayMie>`, {numref}`%s <tab:mc_geo>`, {numref}`%s <tab:mc_m>` are reprinted

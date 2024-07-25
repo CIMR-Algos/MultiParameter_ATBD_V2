@@ -5,8 +5,7 @@ temperatures to Level-2R gridded geophysical parameters. The product is provided
 grid of the CIMR instrument at resolution of the C-band channel, which means it contains 547
 samples per scan for each horn. Multiplied by the number of scans for each orbit gives the
 number of retrieved parameter values per orbit for each geophysical parameter. 
-The output is saved on the EASE2 grid for Northern hemisphere (EPSG: 6931) and Southern hemisphere (EPSG: 6932) 
-in 15&nbsp;km resolution.
+The output is saved on the EASE2 grid for Northern and Southern hemispheres, [EPSG:6931](https://epsg.io/6931) and [EPSG:6932](https://epsg.io/6932), respectively, in 12.5&nbsp;km resolution. 
 The product is provided in netCDF format and contains the
 following variables following the [CF conventions](http://cfconventions.org/):
 

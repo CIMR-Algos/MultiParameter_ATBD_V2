@@ -7,116 +7,7 @@ described in detail. The algorithm is based on the works of
 divided into several steps, which are described in the following.
 
 
-## CIMR Level-1b re-sampling approach
-
-
-The {term}`CIMR` Level-1b data is first resampled to the C-band footprints using
-nearest neighbor resampling. The target footprint with C-band is a compromise between
-resolution and accuracy given sensitivities of the inversion of the forward
-model. The main restraint being the L-band channel which has a
-high influence on the retrieval, on ocean because of SSS and sea ice due to SIT. Higher up sampling of L-band than to the C-band resolution would require accurate knowledge about the antenna pattern of the instrument and a trade-off between accuracy and resolution.
-
-
-## Level-2 end to end algorithm functional flow diagram
-
-The diagram below shows the functional flow of the algorithm.
-
-```{mermaid}
-graph TD
-	subgraph Input data
-		subgraph CIMR L1b
-			TBs[TOA TBs]
-			TBe[TOA TB error]
-		end
-		subgraph External
-			ECMWF[ECMWF analysis]
-			ERA5["Historical ERA5"]
-		end
-	end
-	subgraph Inversion
-		F[Forward model]
-		cost[Cost function]
-		apriori[A priori] 
-		OS[Optimal state]
-
-	end
-
-	subgraph Output data L1R
-		geo[Geophysical variables]
-		unc[Geophsysical uncertainties]
-		outtb[Brightness tempreature residuals]
-		flags[Quality flags]
-	end
-
-	resampling[Resampling processor L1R]
-
-	TBs --> resampling
-	TBe --> resampling
-	ECMWF --> resampling
-	resampling -- Measurement vector --> cost
-	resampling -- Measurement uncertainty --> cost
-	resampling -- State vector --> apriori 
-	resampling -- State uncertainty --> apriori
-
-	ERA5 --Covariance estimate--> apriori
-	apriori --> cost
-	F-->cost
-	cost-->F
-
-	cost --> OS
-	OS --> geo
-	OS --> unc 
-	OS --> outtb
-	OS --> flags
-```
-
-
-## Algorithm assumptions and simplifications
-
-Compared to individual state-of-the-art algorithms for the retrieval of individual quantities, the
-multi parameter retrieval uses a simplified approach. Particular trade-offs
-include:
-* Some ocean parameters contain many empirical values, developed and validated
-  for different instruments which might have to be adjusted to match CIMR
-	  instrument characteristics.
-* The sea ice thickness is retrieved as a combination of first-year ice
-  emissivity and the ocean emissivity. As this, it is prone to noise in the
-  ocean emission, which can lead to erroneous occurrence of sea ice of low
-  thickness, as the first-year ice emissivity is identical to the ocean
-  emissivity at 0 cm thickness.
-* The empirical parametrization of sea ice thickness stems from uncertain
-  atmospheric conditions, so that the ice thickness dependence of higher
-  frequency channels might be confounded with the dependence on the atmospheric
-  conditions.
-* The sensitivity of the CIMR channels to CLW, in particular over sea ice is
-  low, so that the uncertainty of CLW is high. In addition, the effect of
-  decreased CLW over first-year ice is similar to the effect of an increased
-  MYI fraction, so that these two signals cannot be adequately separated in the
-  current retrieval.
-* In the present version of the algorithm, the forward model is assumed
-  near-linear in its characteristic and the retrieval is unconstrained. This
-  might lead to a bias in the retrieval of the parameters when other parameters
-  might converge to nonphysical values. In test cases, this happened mostly
-  with
-	- IST > 273.15 K
-	- SST < 273.15 K
-	- TWV < 0 kg/m$^2$
-* There are more modern approaches for the forward model of the ocean emission,
-  in particular at L-band. This will influence the retrieval of the ocean
-  parameters, in particular {term}`SSS` and {term}`SST`. The current algorithm is the approach
-  of {cite}`Ruf2003` and {cite}`Scarlat2020`, but a switch to another
-  parametrization like {cite}`Meissner2018` can be considered. However, the SSS is
-  the parameter with the weakest signal in the forward model, so that other
-  parametrization have to be improved, to justify this effort.
-* The forward model is restricted to winter conditions over sea ice. The summer
-  conditions are highly variable across frequencies and cannot be adequately
-  described by the current forward model. In particular the definition of first-year
-  ice and multiyear ice is ambiguous in melting conditions. In addition,
-  the {term}`SIT` parametrization is only valid for winter conditions. 
-
-
-
-## Functional description of each algorithm step
+## Retrieval method
 
 The retrieval is following a typical scheme with the objective to minimize
 
@@ -182,8 +73,9 @@ diagonal elements of $\mathbf{\hat S}_a$.
 ```{note}
 $\mathbf S_e$ is often set higher than the pure radiometric uncertainty of the brightness temperatures, to account for the uncertainty of the forward model. This can be named an *effective error covariance of the measurements*. The effective contribution from the forward model error is not evaluated yet, but estimated to be below 2 K for all channels.
 ```
+
 (fw-model)=
-## Mathematical description of the Forward Model
+## Forward Model
 
 The forward model is the compositional forward model. It consists of individual
 components, namely the ocean surface, the sea ice, and the atmosphere. At the
@@ -509,7 +401,7 @@ yet understood and is subject to further investigation. In this version of the
 algorithm, the correction factor $ζ$ for $T_{b,h}$ is shown in the table {numref}`tab:tbh_corr`
 and is applied to the $T_{b,h}$ for each channel.
 
-```{list-table} "Correction factor for $T_{b,h}$ for different channels"
+```{list-table} Correction factor for $T_{b,h}$ for different channels
 :name: "tab:tbh_corr"
 :header-rows: 1
 
@@ -530,40 +422,120 @@ and is applied to the $T_{b,h}$ for each channel.
 This method requires a non-linear optimization for each observation, which can be computationally costly. It is expected to work without modification only on the SCEPS simulated scene as it is probably similar to the method used to create the incidence angle dependence in the scene. A real CIMR scene might require a different approach.
 
 ```{note}
-The proposed method here is solely to correct the incidence angle dependence, the involved effective permittivity $ε_{\text{eff}}$ and effective temperature $T_{\text{eff}}$ should not be confused with the physical permittivity of the surface.
+The proposed method here is solely to correct the incidence angle dependence of the brightness temperatures, the involved effective permittivity $ε_{\text{eff}}$ and effective temperature $T_{\text{eff}}$ should not be confused with the physical permittivity or the temperature of the surface, respectively.
 ```
 
 
-## Input data
-The input to the retrieval is using the L1B data product from the CIMR instrument, which includes the brightness temperatures of the channels 1.4, 6.9, 10.7, 18.7, and 36.5&nbsp;GHz and their uncertainties.
-Technically, missing values are allowed, in case of malfunctioning channels, but the retrieval
-uncertainties will be larger. In addition, for a better constrain of the
-solution space, {term}`ECMWF` analysis data are highly recommended as additional input (see {ref}`sec:auxiliary_data` below). 
-$\mathbf{y}$ and $\mathbf{S}_e$ from {eq}`eq:chi2` are set with the brightness temperatures and their uncertainties from the L1B data product.
+## CIMR Level-1b re-sampling approach
 
 
-## Output data
+The {term}`CIMR` Level-1b data is first resampled to the C-band footprints using
+nearest neighbor resampling. The target footprint with C-band is a compromise between
+resolution and accuracy given sensitivities of the inversion of the forward
+model. The main restraint being the L-band channel which has a
+high influence on the retrieval, on ocean because of SSS and sea ice due to SIT. Higher up sampling of L-band than to the C-band resolution would require accurate knowledge about the antenna pattern of the instrument and a trade-off between accuracy and resolution.
 
-The output data will include the retrieved geophysical parameters listed in equation
-{eq}`eqxy` and their posterior uncertainties. In addition, quality flags
-are derived for each quantity and the retrieval procedure in general.
 
-(sec:auxiliary_data)=
-## Auxiliary data
-{term}`ECMWF` surface analysis data is used as background values for the retrieval. The
-variables used are {term}`WS`, {term}`TWV`, {term}`CLW`, {term}`T2M`,
-{term}`TSK`. They are used to fill the $\mathbf{S}_a$ matrix and the
-$\mathbf{x}_a$ in equation {eq}`eq:chi2`. For near real-time retrieval, the
-$\mathbf{S}_a$ and $\mathbf{x}_a$ can use monthly or seasonal values, as
-the retrieval is not sensitive to the exact values of the background variables with the rather wide covariance matrix.
-```{note}
-In this document a retrieval with fixed background values and TB error is used. This may alter the results of the retrieval on the test cards compared to actual data where the background values are from ECMWF analysis data.
+## Level-2 end to end algorithm functional flow diagram
+
+The diagram below shows the functional flow of the algorithm.
+
+```{mermaid}
+graph TD
+	subgraph Input data
+		subgraph CIMR L1b
+			TBs[TOA TBs]
+			TBe[TOA TB error]
+		end
+		subgraph External
+			ECMWF[ECMWF analysis]
+			ERA5["Historical ERA5"]
+		end
+	end
+	subgraph Inversion
+		F[Forward model]
+		cost[Cost function]
+		apriori[A priori] 
+		OS[Optimal state]
+
+	end
+
+	subgraph Output data L2
+		geo[Geophysical variables]
+		unc[Geophsysical uncertainties]
+		outtb[Brightness tempreature residuals]
+		flags[Quality flags]
+	end
+
+	resampling[Resampling processor]
+
+	TBs --> resampling
+	TBe --> resampling
+	ECMWF --> resampling
+	resampling -- Measurement vector --> cost
+	resampling -- Measurement uncertainty --> cost
+	resampling -- State vector --> apriori 
+	resampling -- State uncertainty --> apriori
+
+	ERA5 --Covariance estimate--> apriori
+	apriori --> cost
+	F-->cost
+	cost-->F
+
+	cost --> OS
+	OS --> geo
+	OS --> unc 
+	OS --> outtb
+	OS --> flags
 ```
 
-## Validation process
+## Functional description of each algorithm step
+1. **Input Data**: The algorithm begins by gathering input data from the CIMR Level-1b products, which include top-of-atmosphere (TOA) brightness temperatures (TBs) and their associated errors (TBe). Additionally, external data sources such as ECMWF analysis and historical ERA5 datasets are incorporated to provide necessary atmospheric and environmental context.
+2. **Resampling**: The input data is resampled to the C-band footprints using a nearest neighbor approach. This step ensures that the data is aligned with the target resolution, balancing the need for accuracy and resolution, particularly for the L-band channel which significantly influences the retrieval process.
+3. **Forward Model**: The forward model simulates the expected brightness temperatures based on the input data and the current state vector. It incorporates atmospheric attenuation, surface emissivity, and other relevant physical processes to generate a consistent state of the observed brightness temperatures.
+4. **Cost Function**: The cost function quantifies the difference between the observed brightness temperatures and those predicted by the forward model. It incorporates measurement uncertainties and a priori information to evaluate the quality of the fit. This step is crucial for optimizing the state vector to minimize discrepancies between observed and modeled data.
+5. **Optimal State**: The optimization process iteratively adjusts the state vector to minimize the cost function. This involves using the Levenberg–Marquardt algorithm to find the best-fitting parameters that explain the observed brightness temperatures. The resulting optimal state vector represents the most accurate estimate of the geophysical variables.
+6. **Output Data Level 2**: Once the optimal state vector is determined, the algorithm generates output data, which includes geophysical variables derived from the brightness temperatures, uncertainties associated with these variables, residuals of the brightness temperatures, and quality flags indicating the reliability of the retrievals.
 
-For validation of the multi parameter retrieval, the comparison to the
-individual specialized products are planned, with the addition of their
-validation datasets. For a complete retrieval with currently operational
-instruments, however, the time period of the validation data must be aligned
-with the operational period of the {term}`AMSR2` and {term}`SMOS` sensors.
+## Algorithm assumptions and simplifications
+
+Compared to individual state-of-the-art algorithms for the retrieval of individual quantities, the
+multi parameter retrieval uses a simplified approach. Particular trade-offs
+include:
+* Some ocean parameters contain many empirical values, developed and validated
+  for different instruments which might have to be adjusted to match CIMR
+	  instrument characteristics.
+* The sea ice thickness is retrieved as a combination of first-year ice
+  emissivity and the ocean emissivity. As this, it is prone to noise in the
+  ocean emission, which can lead to erroneous occurrence of sea ice of low
+  thickness, as the first-year ice emissivity is identical to the ocean
+  emissivity at 0 cm thickness.
+* The empirical parametrization of sea ice thickness stems from uncertain
+  atmospheric conditions, so that the ice thickness dependence of higher
+  frequency channels might be confounded with the dependence on the atmospheric
+  conditions.
+* The sensitivity of the CIMR channels to CLW, in particular over sea ice is
+  low, so that the uncertainty of CLW is high. In addition, the effect of
+  decreased CLW over first-year ice is similar to the effect of an increased
+  MYI fraction, so that these two signals cannot be adequately separated in the
+  current retrieval.
+* In the present version of the algorithm, the forward model is assumed
+  near-linear in its characteristic and the retrieval is unconstrained. This
+  might lead to a bias in the retrieval of the parameters when other parameters
+  might converge to nonphysical values. In test cases, this happened mostly
+  with
+	- IST > 273.15 K
+	- SST < 273.15 K
+	- TWV < 0 kg/m$^2$
+* There are more modern approaches for the forward model of the ocean emission,
+  in particular at L-band. This will influence the retrieval of the ocean
+  parameters, in particular {term}`SSS` and {term}`SST`. The current algorithm is the approach
+  of {cite}`Ruf2003` and {cite}`Scarlat2020`, but a switch to another
+  parametrization like {cite}`Meissner2018` can be considered. However, the SSS is
+  the parameter with the weakest signal in the forward model, so that other
+  parametrization have to be improved, to justify this effort.
+* The forward model is restricted to winter conditions over sea ice. The summer
+  conditions are highly variable across frequencies and cannot be adequately
+  described by the current forward model. In particular the definition of first-year
+  ice and multiyear ice is ambiguous in melting conditions. In addition,
+  the {term}`SIT` parametrization is only valid for winter conditions. 
