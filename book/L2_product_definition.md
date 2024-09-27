@@ -29,9 +29,9 @@ following variables following the [CF conventions](http://cfconventions.org/):
 | `sea_ice_fraction standard_error` | 1 |  1440 x 1440|
 | `multi_year_ice_fraction standard_error` | 1 |  1440 x 1440|
 | `sea_ice_thickness standard_error` | m |  1440 x 1440|
-| `quality_flag` | 1 |  1440 x 1440| 
 | `sea_surface_salinity` | g kg$^{-1}$ |  1440 x 1440|
 | `sea_surface_salinity standard_error` | g kg$^{-1}$ |  1440 x 1440|
+| `quality_flag` | 1 |  1440 x 1440| 
 
 
 The dimension follow the definition of the original CIMR L1b product.
@@ -66,3 +66,4 @@ The quality flag is a 64-bit mask with the following bits:
 | 51 | Ice shelf mask | set for ice shelf |
 | 52-64 | Reserved |  |
 
+Note that the `invalid` flags are only set if the corresponding variable is not finite. For non-physical values, this flag is not set.
