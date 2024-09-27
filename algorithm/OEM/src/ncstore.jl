@@ -69,7 +69,9 @@ function store_output(outfn, alldata, grid)
             (;data=[f.data;b.data],
             err=[f.err;b.err], 
             lat=[f.lat;b.lat], 
-            lon=[f.lon;b.lon])
+            lon=[f.lon;b.lon],
+            it=[f.it;b.it],
+            res=[f.res;b.res])
         end
         )
         #resampled and stored in group is the output file
@@ -78,12 +80,19 @@ function store_output(outfn, alldata, grid)
             errblock=alldata[dir].err
             lat=alldata[dir].lat
             lon=alldata[dir].lon
+            itblock=alldata[dir].it
+            resblock=alldata[dir].res
+
             npblock=np[].array(datablock, dtype=np[].float32)
             nperrblock=np[].array(errblock, dtype=np[].float32)
             in_geo=pr[].geometry.SwathDefinition(lons=lon, lats=lat)
+            npitblock=np[].array(itblock, dtype=np[].int64)
+            npresblock=np[].array(resblock, dtype=np[].float32)
 
             npblockresampled=pr[].kd_tree.resample_nearest(in_geo, npblock, out_geo, radius_of_influence=15000, fill_value=NaN) |> x -> pyconvert(Array, x)
             nperrblockresampled=pr[].kd_tree.resample_nearest(in_geo, nperrblock, out_geo, radius_of_influence=15000, fill_value=NaN) |> x -> pyconvert(Array, x)
+            npitblockresampled=pr[].kd_tree.resample_nearest(in_geo, npitblock, out_geo, radius_of_influence=15000, fill_value=0) |> x -> pyconvert(Array, x)
+            npresblockresampled=pr[].kd_tree.resample_nearest(in_geo, npresblock, out_geo, radius_of_influence=15000, fill_value=NaN) |> x -> pyconvert(Array, x)
 
             for i= 1:9
                 if grid == "native"
@@ -97,6 +106,58 @@ function store_output(outfn, alldata, grid)
                     defVar(getfield(ds, Symbol(dir)) , standard_names[i]*"_error", Float64, ("x","y"),attrib=Dict("standard_name"=>standard_names[i]*"_error", "units"=>units[i], "long_name"=>longnames[i]*" error","grid_mapping"=>"crs"), deflatelevel=5, shuffle=true, chunksizes=(xsize,ysize))[:] = nperrblockresampled[:,:,i]'
                 end
             end
+            #add flags according to the L2 product definition
+            v= defVar(getfield(ds, Symbol(dir)) ,"quality_flag" , Int64, ("x", "y"),attrib=Dict("standard_name"=>"quality_flag", "units"=>"1", "long_name"=>"Quality flag","grid_mapping"=>"crs"), deflatelevel=5, shuffle=true, chunksizes=(xsize,ysize))
+            #create the flags from the it and res blocks and the variables
+            flag=zeros(Int64,size(npitblockresampled))
+            #valid solution if all variables are finite
+            flag .|= dropdims(any(isfinite.(npblockresampled[:,:,:]), dims=3),dims=3)' * 2^0  
+            #convergence flag if it is less than 50 and larger than 0
+            flag .|= (any(npitblockresampled[:,:].<50, dims=3) .| any(npitblockresampled[:,:].>0, dims=3))' * 2^1 
+            #fallback solver used if it is less than 50 (not implemented, so set to false)
+            flag .|= false * 2^2
+            #fallback solver converged if it is less than 50 (not implemented, so set to false)
+            flag .|= false * 2^3
+            #no convergence if it is = 50 
+            flag .|= npitblockresampled[:,:].==50 * 2^4
+            #anomaly detected if it is = 50 #not implemented, so set to false
+            flag .|= false * 2^5
+            #invalid wind_speed if wind_speed is NaN
+            flag .|= isnan.(npblockresampled[:,:,1]') * 2^6
+            #invalid total_water_vapor if total_water_vapor is NaN
+            flag .|= isnan.(npblockresampled[:,:,2]') * 2^7
+            #invalid cloud_liq_water if cloud_liq_water is NaN
+            flag .|= isnan.(npblockresampled[:,:,3]') * 2^8
+            #invalid sea_surface_temperature if sea_surface_temperature is NaN
+            flag .|= isnan.(npblockresampled[:,:,4]') * 2^9
+            #invalid ice_surface_temperature if ice_surface_temperature is NaN
+            flag .|= isnan.(npblockresampled[:,:,5]') * 2^10
+            #invalid sea_ice_fraction if sea_ice_fraction is NaN
+            flag .|= isnan.(npblockresampled[:,:,6]') * 2^11
+            #invalid multi_year_ice_fraction if multi_year_ice_fraction is NaN
+            flag .|= isnan.(npblockresampled[:,:,7]') * 2^12
+            #invalid sea_ice_thickness if sea_ice_thickness is NaN
+            flag .|= isnan.(npblockresampled[:,:,8]') * 2^13
+            #anomaly in residual if residual is NaN or larger than 50 Kelvin, i.e. very far from forward model result
+            flag .|= dropdims(any(npresblockresampled[:,:,:].>50, dims=3),dims=3)' * 2^14 
+
+            #anomaly in L-band #not really defined, so set to false
+            flag .|= false * 2^15
+            #anomaly in C-band #not really defined, so set to false
+            flag .|= false * 2^16
+            #anomaly in X-band #not really defined, so set to false
+            flag .|= false * 2^17
+            #anomaly in Ku-band #not really defined, so set to false
+            flag .|= false * 2^18
+            #anomaly in K-band #not really defined, so set to false
+            flag .|= false * 2^19
+            #landmask if landmask is true
+            lons,lats=out_geo.get_lonlats()
+            landmask = basemap[].maskoceans(lons,lats,lats,resolution="i").mask |> PyArray |> Array |> x->.~x' 
+            flag[landmask].=2^50
+            #ice shelf mask if ice shelf mask is true #not implemented, so set to false
+            flag .|= false * 2^51
+            v[:]=flag
         end
 
         # add metadata
@@ -116,8 +177,6 @@ function store_output(outfn, alldata, grid)
         ncid.attrib["product_version"]="0.1"
         ncid.attrib["author"]="Marcus Huntemann"
         ncid.attrib["author_email"]="macrus.huntemann@uni-bremen.de"
-
-    
     end
    nothing 
 end
