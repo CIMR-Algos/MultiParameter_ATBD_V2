@@ -1,0 +1,946 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Annex &#8212; CIMR L2 Multi Parameter Retrieval ATBD v2</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/styles.css?v=3437f865" />
+    <link rel="stylesheet" type="text/css" href="_static/watermark.css?v=dcb9ece5" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'annex';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Bibliography" href="references.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.jpg" class="logo__image only-light" alt="CIMR L2 Multi Parameter Retrieval ATBD v2 - Home"/>
+    <script>document.write(`<img src="_static/logo.jpg" class="logo__image only-dark" alt="CIMR L2 Multi Parameter Retrieval ATBD v2 - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    ATBD Multi Parameter Retrieval
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="abstract.html">Abstract</a></li>
+<li class="toctree-l1"><a class="reference internal" href="applicable_ref_docs.html">Applicable and reference documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acronyms.html">Acronyms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="definitions.html">Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction_purpose_scope.html">Introduction, purpose and scope</a></li>
+<li class="toctree-l1"><a class="reference internal" href="background_justification_algorithm.html">Background and justification of selected algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L2_product_definition.html">Level-2 product definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="baseline_algorithm_definition.html">Baseline Algorithm Definition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm_input_output_data_definition.html">Algorithm Input and Output Data Definition (IODD)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="first_assessment.html">First assessment of the algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L1b_testscenes.html">L1b testscene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Annex</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/CIMR-Algos/MultiParameter_ATBD" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/annex.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Annex</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tables-for-forward-model">Tables for forward model</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="annex">
+<h1>Annex<a class="headerlink" href="#annex" title="Link to this heading">#</a></h1>
+<section id="tables-for-forward-model">
+<h2>Tables for forward model<a class="headerlink" href="#tables-for-forward-model" title="Link to this heading">#</a></h2>
+<p>The tables listed here are part of the forward model used in the multi parameter
+retrieval. The following Tables <a class="reference internal" href="#tab-mc-atmo"><span class="std std-numref">7</span></a>, <a class="reference internal" href="#tab-raymie"><span class="std std-numref">8</span></a>, <a class="reference internal" href="#tab-mc-geo"><span class="std std-numref">9</span></a>, <a class="reference internal" href="#tab-mc-m"><span class="std std-numref">10</span></a> are reprinted
+from <span id="id1">[<a class="reference internal" href="references.html#id10" title="Fj Wentz and T Meissner. Algorithm theoretical basis document (atbd): amsr ocean algorithm (version 2). 2000. URL: http://scholar.google.com/scholar?hl=en&amp;btnG=Search&amp;q=intitle:Algorithm+Theoretical+Basis+Document+(+ATBD+)+AMSR+Ocean+Algorithm#2.">Wentz and Meissner, 2000</a>]</span> with the corresponding formulae are described in
+<a class="reference internal" href="baseline_algorithm_definition.html#fw-model"><span class="std std-ref">Forward Model</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For completeness, the tables also include the coefficients for 23.8 GHz and 89 GHz, which are not available on the CIMR satellite.
+These coefficients are not used in the retrieval.</p>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="tab-mc-atmo">
+<caption><span class="caption-number">Table 7 </span><span class="caption-text">Coefficients for atmospheric model</span><a class="headerlink" href="#tab-mc-atmo" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Frequency GHz</p></th>
+<th class="head"><p>6.9</p></th>
+<th class="head"><p>10.7</p></th>
+<th class="head"><p>18.7</p></th>
+<th class="head"><p>23.8</p></th>
+<th class="head"><p>36.5</p></th>
+<th class="head"><p>89.0</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(b_0\)</span></p></td>
+<td><p>2.3950e+02</p></td>
+<td><p>2.3951e+02</p></td>
+<td><p>2.4024e+02</p></td>
+<td><p>2.4169e+02</p></td>
+<td><p>2.3945e+02</p></td>
+<td><p>2.4258e+02</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(b_1\)</span></p></td>
+<td><p>2.1392e+00</p></td>
+<td><p>2.2519e+00</p></td>
+<td><p>2.9888e+00</p></td>
+<td><p>3.1032e+00</p></td>
+<td><p>2.5441e+00</p></td>
+<td><p>3.0233e+00</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(b_2\)</span></p></td>
+<td><p>-4.6060e-02</p></td>
+<td><p>-4.4686e-02</p></td>
+<td><p>-7.2593e-02</p></td>
+<td><p>-8.1429e-02</p></td>
+<td><p>-5.1284e-02</p></td>
+<td><p>-7.4976e-02</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(b_3\)</span></p></td>
+<td><p>4.5711e-04</p></td>
+<td><p>3.9182e-04</p></td>
+<td><p>8.1450e-04</p></td>
+<td><p>9.9893e-04</p></td>
+<td><p>4.5202e-04</p></td>
+<td><p>8.8066e-04</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(b_4\)</span></p></td>
+<td><p>-1.6840e-06</p></td>
+<td><p>-1.2200e-06</p></td>
+<td><p>-3.6070e-06</p></td>
+<td><p>-4.8370e-06</p></td>
+<td><p>-1.4360e-06</p></td>
+<td><p>-4.0880e-06</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(b_5\)</span></p></td>
+<td><p>5.0000e-01</p></td>
+<td><p>5.4000e-01</p></td>
+<td><p>6.1000e-01</p></td>
+<td><p>2.0000e-01</p></td>
+<td><p>5.8000e-01</p></td>
+<td><p>6.2000e-01</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(b_6\)</span></p></td>
+<td><p>-1.1000e-01</p></td>
+<td><p>-1.2000e-01</p></td>
+<td><p>-1.6000e-01</p></td>
+<td><p>-2.0000e-01</p></td>
+<td><p>-5.7000e-01</p></td>
+<td><p>-5.7000e-01</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(b_7\)</span></p></td>
+<td><p>-2.1000e-03</p></td>
+<td><p>-3.4000e-03</p></td>
+<td><p>-1.6900e-02</p></td>
+<td><p>-5.2100e-02</p></td>
+<td><p>-2.3800e-02</p></td>
+<td><p>-8.0700e-02</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(a_{\text{O}1}\)</span></p></td>
+<td><p>8.3400e-03</p></td>
+<td><p>9.0800e-03</p></td>
+<td><p>1.2150e-02</p></td>
+<td><p>1.5750e-02</p></td>
+<td><p>4.0060e-02</p></td>
+<td><p>5.3350e-02</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(a_{\text{O}2}\)</span></p></td>
+<td><p>-4.8000e-05</p></td>
+<td><p>-4.7000e-05</p></td>
+<td><p>-6.1000e-05</p></td>
+<td><p>-8.7000e-05</p></td>
+<td><p>-2.0000e-04</p></td>
+<td><p>-1.1800e-04</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(a_{\text{V}1}\)</span></p></td>
+<td><p>7.0000e-05</p></td>
+<td><p>1.8000e-04</p></td>
+<td><p>1.7300e-03</p></td>
+<td><p>5.1400e-03</p></td>
+<td><p>1.8800e-03</p></td>
+<td><p>8.7800e-03</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(a_{\text{V}2}\)</span></p></td>
+<td><p>0.0000e+00</p></td>
+<td><p>0.0000e+00</p></td>
+<td><p>-5.0000e-07</p></td>
+<td><p>1.9000e-06</p></td>
+<td><p>9.0000e-07</p></td>
+<td><p>8.0000e-06</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="tab-raymie">
+<caption><span class="caption-number">Table 8 </span><span class="caption-text">Coefficients for Rayleigh absorption and Mie scattering</span><a class="headerlink" href="#tab-raymie" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Frequency GHz</p></th>
+<th class="head"><p>6.9</p></th>
+<th class="head"><p>10.7</p></th>
+<th class="head"><p>18.7</p></th>
+<th class="head"><p>23.8</p></th>
+<th class="head"><p>36.5</p></th>
+<th class="head"><p>89.0</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(a_{L1}\)</span></p></td>
+<td><p>7.8000e-03</p></td>
+<td><p>1.8300e-02</p></td>
+<td><p>5.5600e-02</p></td>
+<td><p>8.9100e-02</p></td>
+<td><p>2.0270e-01</p></td>
+<td><p>9.6930e-01</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(a_{L2}\)</span></p></td>
+<td><p>3.0300e-02</p></td>
+<td><p>2.9800e-02</p></td>
+<td><p>2.8800e-02</p></td>
+<td><p>2.8100e-02</p></td>
+<td><p>2.6100e-02</p></td>
+<td><p>1.4600e-02</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(a_{L3}\)</span></p></td>
+<td><p>7.0000e-04</p></td>
+<td><p>2.7000e-03</p></td>
+<td><p>1.1300e-02</p></td>
+<td><p>1.8800e-02</p></td>
+<td><p>4.2500e-02</p></td>
+<td><p>1.5060e-01</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(a_{L4}\)</span></p></td>
+<td><p>0.0000e+00</p></td>
+<td><p>6.0000e-03</p></td>
+<td><p>4.0000e-03</p></td>
+<td><p>2.0000e-03</p></td>
+<td><p>-2.0000e-03</p></td>
+<td><p>-2.0000e-03</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(a_{L5}\)</span></p></td>
+<td><p>1.2216e+00</p></td>
+<td><p>1.1795e+00</p></td>
+<td><p>1.0636e+00</p></td>
+<td><p>1.0220e+00</p></td>
+<td><p>9.5460e-01</p></td>
+<td><p>7.9610e-01</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="tab-mc-geo">
+<caption><span class="caption-number">Table 9 </span><span class="caption-text">Coefficients for geometric optics</span><a class="headerlink" href="#tab-mc-geo" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Frequency GHz</p></th>
+<th class="head"><p>6.9</p></th>
+<th class="head"><p>10.7</p></th>
+<th class="head"><p>18.7</p></th>
+<th class="head"><p>23.8</p></th>
+<th class="head"><p>36.5</p></th>
+<th class="head"><p>89.0</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>v-pol <span class="math notranslate nohighlight">\(r_0\)</span></p></td>
+<td><p>-2.7000e-04</p></td>
+<td><p>-3.2000e-04</p></td>
+<td><p>-4.9000e-04</p></td>
+<td><p>-6.3000e-04</p></td>
+<td><p>-1.0100e-03</p></td>
+<td><p>-1.5300e-03</p></td>
+</tr>
+<tr class="row-odd"><td><p>h-pol <span class="math notranslate nohighlight">\(r_0\)</span></p></td>
+<td><p>5.4000e-04</p></td>
+<td><p>7.2000e-04</p></td>
+<td><p>1.1300e-03</p></td>
+<td><p>1.3900e-03</p></td>
+<td><p>1.9100e-03</p></td>
+<td><p>2.0200e-03</p></td>
+</tr>
+<tr class="row-even"><td><p>v-pol <span class="math notranslate nohighlight">\(r_1\)</span></p></td>
+<td><p>-2.1000e-05</p></td>
+<td><p>-2.9000e-05</p></td>
+<td><p>-5.3000e-05</p></td>
+<td><p>-7.0000e-05</p></td>
+<td><p>-1.0500e-04</p></td>
+<td><p>-1.1600e-04</p></td>
+</tr>
+<tr class="row-odd"><td><p>h-pol <span class="math notranslate nohighlight">\(r_1\)</span></p></td>
+<td><p>3.2000e-05</p></td>
+<td><p>4.4000e-05</p></td>
+<td><p>7.0000e-05</p></td>
+<td><p>8.5000e-05</p></td>
+<td><p>1.1200e-04</p></td>
+<td><p>1.3000e-04</p></td>
+</tr>
+<tr class="row-even"><td><p>v-pol <span class="math notranslate nohighlight">\(r_2\)</span></p></td>
+<td><p>-2.1000e-05</p></td>
+<td><p>-2.1000e-05</p></td>
+<td><p>-2.1000e-05</p></td>
+<td><p>-2.1000e-05</p></td>
+<td><p>-2.1000e-05</p></td>
+<td><p>-2.1000e-05</p></td>
+</tr>
+<tr class="row-odd"><td><p>h-pol <span class="math notranslate nohighlight">\(r_2\)</span></p></td>
+<td><p>-2.5260e-05</p></td>
+<td><p>-2.8940e-05</p></td>
+<td><p>-3.6900e-05</p></td>
+<td><p>-4.1950e-05</p></td>
+<td><p>-5.4510e-05</p></td>
+<td><p>-5.5000e-05</p></td>
+</tr>
+<tr class="row-even"><td><p>v-pol <span class="math notranslate nohighlight">\(r_3\)</span></p></td>
+<td><p>0.0000e+00</p></td>
+<td><p>8.0000e-08</p></td>
+<td><p>3.1000e-07</p></td>
+<td><p>4.1000e-07</p></td>
+<td><p>4.5000e-07</p></td>
+<td><p>-9.0000e-07</p></td>
+</tr>
+<tr class="row-odd"><td><p>h-pol <span class="math notranslate nohighlight">\(r_3\)</span></p></td>
+<td><p>0.0000e+00</p></td>
+<td><p>-2.0000e-08</p></td>
+<td><p>-1.2000e-07</p></td>
+<td><p>-2.0000e-07</p></td>
+<td><p>-3.6000e-07</p></td>
+<td><p>-4.6000e-07</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="tab-mc-m">
+<caption><span class="caption-number">Table 10 </span><span class="caption-text">Coefficients m1 and m2</span><a class="headerlink" href="#tab-mc-m" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Frequency GHz</p></th>
+<th class="head"><p>6.9</p></th>
+<th class="head"><p>10.7</p></th>
+<th class="head"><p>18.7</p></th>
+<th class="head"><p>23.8</p></th>
+<th class="head"><p>36.5</p></th>
+<th class="head"><p>89.0</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>v-pol <span class="math notranslate nohighlight">\(m_1\)</span></p></td>
+<td><p>2.0000e-04</p></td>
+<td><p>2.0000e-04</p></td>
+<td><p>1.4000e-03</p></td>
+<td><p>1.7800e-03</p></td>
+<td><p>2.5700e-03</p></td>
+<td><p>2.6000e-03</p></td>
+</tr>
+<tr class="row-odd"><td><p>h-pol <span class="math notranslate nohighlight">\(m_1\)</span></p></td>
+<td><p>2.0000e-03</p></td>
+<td><p>2.0000e-03</p></td>
+<td><p>2.9300e-03</p></td>
+<td><p>3.0800e-03</p></td>
+<td><p>3.2900e-03</p></td>
+<td><p>3.3000e-03</p></td>
+</tr>
+<tr class="row-even"><td><p>v-pol <span class="math notranslate nohighlight">\(m_2\)</span></p></td>
+<td><p>6.9000e-03</p></td>
+<td><p>6.9000e-03</p></td>
+<td><p>7.3600e-03</p></td>
+<td><p>7.3000e-03</p></td>
+<td><p>7.0100e-03</p></td>
+<td><p>7.0000e-03</p></td>
+</tr>
+<tr class="row-odd"><td><p>h-pol <span class="math notranslate nohighlight">\(m_2\)</span></p></td>
+<td><p>6.0000e-03</p></td>
+<td><p>6.0000e-03</p></td>
+<td><p>6.5600e-03</p></td>
+<td><p>6.6000e-03</p></td>
+<td><p>6.6000e-03</p></td>
+<td><p>6.6000e-03</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="tab-c-ice">
+<caption><span class="caption-number">Table 11 </span><span class="caption-text">Coefficients ice emissivities</span><a class="headerlink" href="#tab-c-ice" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Frequency GHz</p></th>
+<th class="head"><p>1.4</p></th>
+<th class="head"><p>6.9</p></th>
+<th class="head"><p>10.7</p></th>
+<th class="head"><p>18.7</p></th>
+<th class="head"><p>23.8</p></th>
+<th class="head"><p>36.5</p></th>
+<th class="head"><p>89.0</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>eps_FY_V</p></td>
+<td><p>0.92</p></td>
+<td><p>0.958</p></td>
+<td><p>0.960</p></td>
+<td><p>0.965</p></td>
+<td><p>0.960</p></td>
+<td><p>0.946</p></td>
+<td><p>0.615</p></td>
+</tr>
+<tr class="row-odd"><td><p>eps_FY_H</p></td>
+<td><p>0.86</p></td>
+<td><p>0.868</p></td>
+<td><p>0.879</p></td>
+<td><p>0.887</p></td>
+<td><p>0.882</p></td>
+<td><p>0.864</p></td>
+<td><p>0.488</p></td>
+</tr>
+<tr class="row-even"><td><p>eps_MY_V</p></td>
+<td><p>0.94</p></td>
+<td><p>0.972</p></td>
+<td><p>0.948</p></td>
+<td><p>0.885</p></td>
+<td><p>0.839</p></td>
+<td><p>0.731</p></td>
+<td><p>0.666</p></td>
+</tr>
+<tr class="row-odd"><td><p>eps_MY_H</p></td>
+<td><p>0.85</p></td>
+<td><p>0.866</p></td>
+<td><p>0.845</p></td>
+<td><p>0.799</p></td>
+<td><p>0.763</p></td>
+<td><p>0.675</p></td>
+<td><p>0.630</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="tab-fy-thick">
+<caption><span class="caption-number">Table 12 </span><span class="caption-text">Coefficients for the first year ice thickness sensitivity</span><a class="headerlink" href="#tab-fy-thick" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Frequency GHz</p></th>
+<th class="head"><p>6.9</p></th>
+<th class="head"><p>10.7</p></th>
+<th class="head"><p>18.7</p></th>
+<th class="head"><p>23.8</p></th>
+<th class="head"><p>36.5</p></th>
+<th class="head"><p>89.0</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>b_v</p></td>
+<td><p>157.94</p></td>
+<td><p>163.49</p></td>
+<td><p>175.182</p></td>
+<td><p>185.914</p></td>
+<td><p>206.668</p></td>
+<td><p>242.019</p></td>
+</tr>
+<tr class="row-odd"><td><p>c_v</p></td>
+<td><p>8.957</p></td>
+<td><p>8.524</p></td>
+<td><p>7.734</p></td>
+<td><p>7.474</p></td>
+<td><p>7.668</p></td>
+<td><p>2.804</p></td>
+</tr>
+<tr class="row-even"><td><p>b_h</p></td>
+<td><p>74.221</p></td>
+<td><p>78.405</p></td>
+<td><p>90.601</p></td>
+<td><p>99.897</p></td>
+<td><p>128.36</p></td>
+<td><p>175.158</p></td>
+</tr>
+<tr class="row-odd"><td><p>c_h</p></td>
+<td><p>11.894</p></td>
+<td><p>11.645</p></td>
+<td><p>10.165</p></td>
+<td><p>9.129</p></td>
+<td><p>8.986</p></td>
+<td><p>5.686</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pst-scrollable-table-container"><table class="table" id="tab-emtemp">
+<caption><span class="caption-number">Table 13 </span><span class="caption-text">linear regression Coefficients for emitting layer temperature calculation for Winter</span><a class="headerlink" href="#tab-emtemp" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Frequency GHz</p></th>
+<th class="head"><p>6.9</p></th>
+<th class="head"><p>10.7</p></th>
+<th class="head"><p>18.7</p></th>
+<th class="head"><p>23.8</p></th>
+<th class="head"><p>36.5</p></th>
+<th class="head"><p>89.0</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>a_fyi</p></td>
+<td><p>0.23</p></td>
+<td><p>0.26</p></td>
+<td><p>0.29</p></td>
+<td><p>0.29</p></td>
+<td><p>0.30</p></td>
+<td><p>0.37</p></td>
+</tr>
+<tr class="row-odd"><td><p>b_fyi</p></td>
+<td><p>-5.5</p></td>
+<td><p>-5.2</p></td>
+<td><p>-5.0</p></td>
+<td><p>-4.9</p></td>
+<td><p>-4.9</p></td>
+<td><p>-4.2</p></td>
+</tr>
+<tr class="row-even"><td><p>a_myi</p></td>
+<td><p>0.27</p></td>
+<td><p>0.34</p></td>
+<td><p>0.42</p></td>
+<td><p>0.43</p></td>
+<td><p>0.45</p></td>
+<td><p>0.49</p></td>
+</tr>
+<tr class="row-odd"><td><p>b_myi</p></td>
+<td><p>-11.5</p></td>
+<td><p>-10.5</p></td>
+<td><p>-9.5</p></td>
+<td><p>-9.2</p></td>
+<td><p>- 8.9</p></td>
+<td><p>-8.4</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="references.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Bibliography</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tables-for-forward-model">Tables for forward model</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Marcus Huntemann, Janna Rückert, Gunnar Spreen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+This ATBD was developed in the context of the ESA-funded CIMR DEVALGO study (2022-2024) (contract 4000137493).
+<br>
+ESA is not responsible in any way for the content of this document.
+</p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
