@@ -275,21 +275,21 @@ function markdown_performance_table(scene, gdata;scene_label="1",border=100)
 end
 ##calculate_forward_backward_performance_end
 
-
+dpath=get(ENV,"DEVALGO_INPUT_DATA_PATH","/mnt/spaces/Projects/2022_CIMR-DEVALGO/DATA")
 ##fns_start
 #the input files can be found on the ESA DEVALGO FTP server,
 #this is a named tuple with the paths to the input files
 fns = (; scene1=
-        (; l1b="/mnt/spaces/Projects/2022_CIMR-DEVALGO/CIMR_L1X/W_PT-DME-Lisbon-SAT-CIMR-1B_C_DME_20230420T103323_LD_20280110T114800_20280110T115700_TN.nc",
-            input="/mnt/spaces/Projects/2022_CIMR-DEVALGO/Test_scenes_downscaled_projected_20230923/test_scene_1_compressed_lowres.nc"),
+        (; l1b=joinpath(dpath,"DEIMOS/W_PT-DME-Lisbon-SAT-CIMR-1B_C_DME_20230420T103323_LD_20280110T114800_20280110T115700_TN.nc"),
+            input=joinpath(dpath,"DEVALGO/test_scene_1_compressed_lowres.nc")),
         scene2=
-        (; l1b="/mnt/spaces/Projects/2022_CIMR-DEVALGO/CIMR_L1X/W_PT-DME-Lisbon-SAT-CIMR-1B_C_DME_20230417T105425_LD_20280110T114800_20280110T115700_TN.nc",
-            input="/mnt/spaces/Projects/2022_CIMR-DEVALGO/Test_scenes_downscaled_projected_20230923/test_scene_2_compressed_lowres.nc"),
+        (; l1b=joinpath(dpath,"DEIMOS/W_PT-DME-Lisbon-SAT-CIMR-1B_C_DME_20230417T105425_LD_20280110T114800_20280110T115700_TN.nc"),
+            input=joinpath(dpath,"DEVALGO/test_scene_2_compressed_lowres.nc")),
         scenep=
         (;
-            l1b="/mnt/spaces/Projects/2022_CIMR-DEVALGO/SCEPS_l1b_sceps_geo_polar_scene_1_unfiltered_tot_minimal_nom_nedt_apc_tot_v2p1.nc",
-            input="/mnt/spaces/Projects/2022_CIMR-DEVALGO/cimr_sceps_toa_card_devalgo_polarscene_1_20161217_v2p0_aa_000.nc",
-            geo="/mnt/spaces/Projects/2022_CIMR-DEVALGO/cimr_sceps_geo_card_devalgo_polarscene_1_20161217_harmonised_v2p0_surface.nc"
+        l1b = joinpath(dpath,"SCEPS/SCEPS_l1b_sceps_geo_polar_scene_1_unfiltered_tot_minimal_nom_nedt_apc_tot_v2p1.nc"),
+        input = joinpath(dpath,"SCEPS/cimr_sceps_toa_card_devalgo_polarscene_1_20161217_v2p0_aa_000.nc"),
+        geo = joinpath(dpath,"SCEPS/cimr_sceps_geo_card_devalgo_polarscene_1_20161217_harmonised_v2p0_surface.nc")
         )
 )
 ##fns_end
