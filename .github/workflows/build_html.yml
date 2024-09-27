@@ -1,0 +1,80 @@
+name: build_html
+run-name: Build HTML
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: self-hosted
+    permissions:
+      contents: write
+    container:
+      image: ubuntu:latest
+      volumes:
+        - /mnt/spaces/Projects/2022_CIMR-DEVALGO:/DEVALGO
+    steps:
+    - name: setup base
+      run: | 
+        apt update
+        apt install -y nodejs sqlite3 make wget git netcdf-bin
+    
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install Python dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Setup Julia
+      uses: julia-actions/setup-julia@v2
+      with:
+        version: '1.10'
+
+    - name: Install IJulia
+      run: | # all PythonCall.jl dependencies are installed already in the global python environment for the jupyter book, so there is no need for a separate environment
+        echo "JULIA_CONDAPKG_BACKEND=Null" >> $GITHUB_ENV
+        echo "JULIA_PYTHONCALL_EXE=$(which python)" >> $GITHUB_ENV
+        echo "JULIA_NUM_THREADS=32" >> $GITHUB_ENV
+        echo "DEVALGO_INPUT_DATA_PATH=/DEVALGO/DATA" >> $GITHUB_ENV
+        julia -e 'using Pkg; Pkg.add(["IJulia", "Revise"]);Pkg.build("IJulia");'
+
+    - name: Download Natural Earth data
+      run: |
+        python -m cartopy.feature.download physical
+      
+    - name: Install Julia dependencies
+      run: |   
+        julia -e 'using Pkg; Pkg.activate("algorithm/algoenv"); Pkg.instantiate()'
+
+    - name: Build HTML
+      run: |
+        cd book
+        make
+        cd ..
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: book/_build/html
+      
+    - name: run command line example
+      run: |
+        cd algorithm
+        julia --project=algoenv mpr_run.jl ${DEVALGO_INPUT_DATA_PATH}/SCEPS/SCEPS_l1b_sceps_geo_polar_scene_1_unfiltered_tot_minimal_nom_nedt_apc_tot_v2p1.nc out_polar.nc ease2_nh
+        ncdump -h out_polar.nc > out_polar.txt
+        cd ..
+
+    - name: upload ncdump output artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ncdump-output
+        path: algorithm/out_polar.txt
+        overwrite: true
