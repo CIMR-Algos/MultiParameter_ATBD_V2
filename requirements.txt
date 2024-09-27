@@ -1,0 +1,10 @@
+sphinxcontrib-mermaid
+jupyter-book
+matplotlib
+numpy
+pyresample
+basemap
+cartopy
+pyproj
+certifi
+nbconvert

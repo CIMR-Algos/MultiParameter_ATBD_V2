@@ -1,3 +1,9 @@
+
+if "JULIA_PYTHONCALL_EXE" ∉ keys(ENV)
+    ENV["JULIA_PYTHONCALL_EXE"] = @__DIR__() * "/../.venv/bin/python"
+end
+ENV["JULIA_CONDAPKG_BACKEND"] = "Null"
+
 ##imports_start
 using Pkg
 Pkg.activate("../algorithm/algoenv")
