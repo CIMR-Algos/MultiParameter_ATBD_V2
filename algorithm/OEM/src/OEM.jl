@@ -5,10 +5,12 @@ using PythonCall
 #some workarounds for python imports 
 const pr = Ref{Py}()
 const np = Ref{Py}()
+const basemap = Ref{Py}()
 
 function __init__() #this is called when the module is loaded
     np[] = pyimport("numpy")
     pr[] = pyimport("pyresample")
+    basemap[] = pyimport("mpl_toolkits.basemap")
 end
 
 nsidcg() = pr[].geometry.AreaDefinition("nsidc_n", "NSIDC polar stereographic north", "nsidc_n", "+proj=stere +lat_0=90 +lat_ts=70 +lon_0=-45 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs", 608, 896, [-3850000, -5350000, 3750000, 5850000])
