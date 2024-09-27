@@ -128,6 +128,8 @@ function run_oem(band_data::T; band_error=nothing, apriori=nothing, apriori_unc=
                 200, 200, sqrtS_ee[9], sqrtS_ee[10], 200, 200) .^ 2) for _ = 1:l]
         end
     else
+        band_error = copy(band_error)
+        clamp!(band_error, 0.3, 100.0)
         S_e_collection = [Diagonal(SVector{14,Float64}(
             band_error[i, 1], band_error[i, 2], band_error[i, 3], band_error[i, 4], band_error[i, 5], band_error[i, 6], band_error[i, 7], band_error[i, 8], 200, 200, band_error[i, 9], band_error[i, 10], 200, 200).^ 2) for i = 1:l]
     end
