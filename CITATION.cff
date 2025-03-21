@@ -20,10 +20,10 @@ authors:
     family-names: Spreen
     email: gunnar.spreen@uni-bremen.de
     affiliation: University of Bremen
-repository-code: 'https://github.com/CIMR-Algos/MultiParameter_ATBD'
+repository-code: 'https://github.com/CIMR-Algos/MultiParameter_ATBD_V2'
 url: >-
-  https://cimr-algos.github.io/MultiParameter_ATBD/intro.html
+  https://cimr-algos.github.io/MultiParameter_ATBD_V2/intro.html
 keywords:
   - Copernicus Imaging Microwave Radiometer (CIMR)
   - ESA DEVALGO
-version: '1'
+version: '2'
