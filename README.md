@@ -14,7 +14,7 @@ To build the ATBD, you will need to have Python installed on your system. You ca
 ```bash
 # Clone the repository
 git clone git@github.com:CIMR-Algos/MultiParameter_ATBD_V2.git
-cd SMultiParameter_ATBD_V2
+cd MultiParameter_ATBD_V2
 # Create a virtual environment and install the required packages
 python -m venv .venv
 source .venv/bin/activate
@@ -39,7 +39,7 @@ julia +1.10 -e "using Pkg; Pkg.add([\"IJulia\",\"Revise\"]);Pkg.build(\"IJulia\"
 julia +1.10 --project=../algorithm/algoenv -e "using Pkg; Pkg.instantiate()"
 
 # Build the ATBD
-make all
+make html
 ```
 
 The ATBD will be built in the `_build/html` directory.
