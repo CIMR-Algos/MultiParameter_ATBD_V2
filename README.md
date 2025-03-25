@@ -1,3 +1,4 @@
+[![build_html](https://github.com/CIMR-Algos//MultiParameter_ATBD_V2/actions/workflows/build_html.yml/badge.svg)](https://github.com/CIMR-Algos//MultiParameter_ATBD_V2/actions/workflows/build_html.yml)
 # CIMR L2 Multi-Parameter-Retrieval ATBD 
 
 This repository holds the ATBD (JupyterBook) v2 for a prototype Level-2 Multi-Parameter-Retrieval product for the CIMR mission.
